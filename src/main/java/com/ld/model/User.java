@@ -1,7 +1,9 @@
 package com.ld.model;
 
 import com.ld.enums.UserRole;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
