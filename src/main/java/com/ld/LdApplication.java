@@ -1,4 +1,4 @@
-package com.ld.LD;
+package com.ld;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

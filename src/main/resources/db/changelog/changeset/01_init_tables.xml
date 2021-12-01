@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property name="uuid_type" value="uuid" dbms="postgresql"/>
+    <property name="uuid_function" value="uid.uuid_generate_v4()" dbms="postgresql"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="001" author="raus">
+        <createTable tableName="users">
+            <column name="user_id" type="${uuid_type}" valueComputed="${uuid_function}">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="send_notification" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="user_role" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002" author="raus">
+        <createTable tableName="lessons">
+            <column name="lesson_id" type="${uuid_type}" valueComputed="${uuid_function}">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="creation_date" type="DATE" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="access_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="003" author="raus">
+        <createTable tableName="tags">
+            <column name="tag_id" type="${uuid_type}" valueComputed="${uuid_function}">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="label" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="004" author="raus">
+        <createTable tableName="contents">
+            <column name="content_id" type="${uuid_type}" valueComputed="${uuid_function}">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="title" type="VARCHAR(100)"/>
+            <column name="media_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(500)"/>
+            <column name="lesson_id" type="${uuid_type}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="contents"
+                                 baseColumnNames="lesson_id"
+                                 constraintName="fk_content_lesson"
+                                 referencedTableName="lessons"
+                                 referencedColumnNames="lesson_id"/>
+    </changeSet>
+
+    <changeSet id="005" author="raus">
+        <createTable tableName="lesson_tags">
+            <column name="lesson_id" type="${uuid_type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_id" type="${uuid_type}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="lesson_tags"
+                                 baseColumnNames="lesson_id"
+                                 constraintName="fk_lesson_to_lesson"
+                                 referencedTableName="lessons"
+                                 referencedColumnNames="lesson_id"/>
+        <addForeignKeyConstraint baseTableName="lesson_tags"
+                                 baseColumnNames="content_id"
+                                 constraintName="fk_content_to_content"
+                                 referencedTableName="contents"
+                                 referencedColumnNames="content_id"/>
+    </changeSet>
+
+    <changeSet id="006" author="raus">
+        <createTable tableName="user_favorite_lessons">
+            <column name="lesson_id" type="${uuid_type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="${uuid_type}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_favorite_lessons"
+                                 baseColumnNames="lesson_id"
+                                 constraintName="fk_favorite_lesson_to_lesson"
+                                 referencedTableName="lessons"
+                                 referencedColumnNames="lesson_id"/>
+        <addForeignKeyConstraint baseTableName="user_favorite_lessons"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_user_to_user"
+                                 referencedTableName="users"
+                                 referencedColumnNames="user_id"/>
+    </changeSet>
+
+</databaseChangeLog>
