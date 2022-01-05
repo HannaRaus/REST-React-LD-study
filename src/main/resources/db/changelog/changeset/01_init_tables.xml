@@ -16,10 +16,10 @@
             <column name="name" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="VARCHAR(50)">
+            <column name="password" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="phone" type="INTEGER">
+            <column name="phone" type="VARCHAR(20)">
                 <constraints nullable="false"/>
             </column>
             <column name="is_active" type="BOOLEAN" defaultValueBoolean="false"/>
@@ -89,7 +89,7 @@
             <column name="lesson_id" type="${uuid_type}">
                 <constraints nullable="false"/>
             </column>
-            <column name="content_id" type="${uuid_type}">
+            <column name="tag_id" type="${uuid_type}">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -100,10 +100,10 @@
                                  referencedTableName="lessons"
                                  referencedColumnNames="lesson_id"/>
         <addForeignKeyConstraint baseTableName="lesson_tags"
-                                 baseColumnNames="content_id"
-                                 constraintName="fk_content_to_content"
-                                 referencedTableName="contents"
-                                 referencedColumnNames="content_id"/>
+                                 baseColumnNames="tag_id"
+                                 constraintName="fk_tag_to_tag"
+                                 referencedTableName="tags"
+                                 referencedColumnNames="tag_id"/>
     </changeSet>
 
     <changeSet id="006" author="raus">
