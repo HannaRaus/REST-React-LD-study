@@ -45,7 +45,13 @@
             <column name="access_type" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="author_id" type="${uuid_type}" valueComputed="${uuid_function}"/>
         </createTable>
+        <addForeignKeyConstraint baseTableName="lessons"
+                                 baseColumnNames="author_id"
+                                 constraintName="fk_lesson_author"
+                                 referencedTableName="users"
+                                 referencedColumnNames="user_id"/>
     </changeSet>
 
     <changeSet id="003" author="raus">
