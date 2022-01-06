@@ -1,9 +1,10 @@
 package com.ld.model;
 
 import com.ld.enums.UserRole;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,9 +24,10 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -52,7 +54,7 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
-    private UserRole userRole = UserRole.ROLE_USER;
+    private UserRole userRole;
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Lesson.class)
     @JoinTable(name = "user_favorite_lessons",

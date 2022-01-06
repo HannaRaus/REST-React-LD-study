@@ -28,23 +28,8 @@ public class UserController {
     public ValidateResponse registration(@RequestBody ValidateUserRequest request) {
         ValidateResponse response = validationService.validate(request);
         if (response.isSuccess()) {
-            register(request);
+            service.register(request);
         }
         return response;
-    }
-
-    @ModelAttribute("userForm")
-    public User defaultUser() {
-        return new User();
-    }
-
-    private void register(ValidateUserRequest request) {
-        User user = new User();
-        user.setName(request.getName());
-        user.setPhone(request.getPhone());
-        user.setPassword(request.getPassword());
-        user.setSendNotification(request.isSendNotifications());
-        user.setActive(true);
-        service.save(user);
     }
 }

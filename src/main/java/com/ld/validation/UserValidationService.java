@@ -47,8 +47,7 @@ public class UserValidationService {
 
     private boolean isCorrectPhoneNumber(String phone) {
         Matcher matcher = Pattern.compile("^\\+?3?8?(0(67|68|96|97|98|63|93)\\d{7})$").matcher(phone);
-        boolean matches = matcher.matches();
-        return matches;
+        return matcher.matches();
     }
 
 }

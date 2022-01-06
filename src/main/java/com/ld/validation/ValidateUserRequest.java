@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @Data
@@ -19,6 +20,7 @@ public class ValidateUserRequest {
     @NonNull
     private String password;
 
+    @NotNull
     private boolean sendNotifications;
 
 }
