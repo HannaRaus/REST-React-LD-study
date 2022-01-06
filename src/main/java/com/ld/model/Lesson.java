@@ -1,9 +1,7 @@
 package com.ld.model;
 
 import com.ld.enums.AccessType;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -16,9 +14,10 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "lessons")
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Lesson {
 
     @Id
@@ -27,8 +26,6 @@ public class Lesson {
     @Column(name = "lesson_id", updatable = false, nullable = false)
     private UUID id;
 
-    @NotBlank(message = "Title can't be empty")
-    @Size(min = 5, max = 100, message = "Title must be in range of 5-100 symbols")
     @Column(name = "title", nullable = false)
     private String title;
 

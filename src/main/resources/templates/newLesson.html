@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments :: head">
+    <title id="pageTitle">Create Lesson</title>
+</head>
+<body>
+<!--Import navigation bar-->
+<div th:replace="fragments :: navibar"></div>
+<div class="container">
+
+    <!--Title-->
+    <span class="titleErrorField" style="color:red"></span>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Title</span>
+        </div>
+        <input class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+               id="title" name="title" type="text" placeholder="Your title here">
+    </div>
+
+    <!--Description-->
+    <span class="descriptionErrorField" style="color:red"></span>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Description</span>
+        </div>
+        <textarea class="form-control" aria-label="With textarea" cols="150" rows="10"
+                  id="description" name="description" placeholder="Your title here">
+        </textarea>
+    </div>
+
+    <!--Access-->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="radio" id="private" name="accessType" value="private" checked>
+            </div>
+        </div>
+        <label class="form-control" for="private">private</label>
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="radio" id="public" name="accessType" value="public">
+            </div>
+        </div>
+        <label class="form-control" for="public">public</label>
+    </div>
+
+    <!--Make me creator-->
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="checkbox" id="userAsAuthor" name="userAsAuthor">
+            </div>
+        </div>
+        <label class="form-control" for="userAsAuthor">Mark me as an author</label>
+    </div>
+
+    <button class="btn btn-outline-success btn-block" onclick="validateAndCreateLesson()">Create</button>
+
+</div>
+</body>
+<script src="/js/validateLesson.js"></script>
+<!--Script that makes all inputs the same width-->
+<script src="/js/style.js"></script>
+</html>
