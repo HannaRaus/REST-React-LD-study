@@ -1,16 +1,18 @@
 package com.ld.controllers;
 
-import com.ld.model.Lesson;
+import com.ld.model.Tag;
 import com.ld.services.LessonService;
+import com.ld.services.TagService;
+import com.ld.services.TagsEditor;
 import com.ld.validation.LessonValidationService;
 import com.ld.validation.ValidateLessonRequest;
 import com.ld.validation.ValidateResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -20,15 +22,18 @@ public class LessonsController {
 
     private final LessonService lessonService;
     private final LessonValidationService validationService;
+    private final TagService tagService;
 
     @GetMapping(path = "/all")
-    public List<Lesson> showLessons() {
+    public String showLessons(Model model) {
         log.info("LessonsController.showLessons - rendering lessons list page");
-        return lessonService.readAll();
+        model.addAttribute("lessons", lessonService.readAll());
+        return "lessons";
     }
 
     @GetMapping("/create")
-    public String showNewLessonsForm() {
+    public String showNewLessonsForm(Model model) {
+        model.addAttribute("tags", tagService.readAll());
         return "newLesson";
     }
 
@@ -40,5 +45,10 @@ public class LessonsController {
             lessonService.save(request);
         }
         return response;
+    }
+
+    @InitBinder
+    public void tagBinding(WebDataBinder binder) {
+        binder.registerCustomEditor(Tag.class, "tags", new TagsEditor(tagService));
     }
 }

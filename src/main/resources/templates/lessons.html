@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments :: head">
+    <title id="pageTitle">Lessons</title>
+</head>
+<body>
+<div th:replace="fragments :: navibar"></div>
+<!--Set variables-->
+<div th:with="listSize=${lessons.size()}, endpoint=${#httpServletRequest.requestURI}">
+    <!--In case the list is empty-->
+    <div th:if="${listSize <= 0}">
+        <h2 th:switch="${endpoint}">
+            <!--Render correct title after search-->
+            <span th:case="'/lessons/search'">No lessons with such title</span>
+            <!--In other cases-->
+            <span th:case="*">No lessons yet</span>
+            <a href="/lessons/create">
+                <button class="btn btn-warning my-2 my-sm-0" type="submit">Create</button>
+            </a>
+        </h2>
+    </div>
+    <!--Unless the list is empty/ Rendering content-->
+    <div th:unless="${listSize <= 0}">
+        <h2 th:switch="${endpoint}">
+            <!--Render correct title after search "Result + size"-->
+            <span th:case="'/lessons/search'">Found lessons - <span th:text="${listSize}"></span></span>
+            <!--In other cases show "My notes + size"-->
+            <span th:case="*">My lessons - <span th:text="${listSize}"></span></span>
+            <a href="/lessons/create">
+                <button class="btn btn-warning my-2 my-sm-0" type="submit">Create</button>
+            </a>
+        </h2>
+        <!--        <table class="table table-hover" id="tab">-->
+        <!--            <thead>-->
+        <!--            <tr>-->
+        <!--                <th class="col-sm-1" scope="col">Name</th>-->
+        <!--                <th scope="col">Description</th>-->
+        <!--                <th class="col-sm-1" scope="col-">Access</th>-->
+        <!--                <th class="col-sm-2" scope="col" colspan="3"></th>-->
+        <!--            </tr>-->
+        <!--            </thead>-->
+        <!--            <tbody>-->
+        <!--            <tr th:each="note : ${notes}">-->
+        <!--                <td scope="row" th:text="${note.title}"></td>-->
+        <!--                &lt;!&ndash; method to truncate note content and add url button for read more &ndash;&gt;-->
+        <!--                <td class='content' th:data-href="@{/note/share?id={id}(id=${note.id})}"-->
+        <!--                    th:text="${note.content}"></td>-->
+        <!--                <td th:text="${note.accessType}"></td>-->
+        <!--                <td align="center">-->
+        <!--                    <a th:href="@{/note/edit?id={id}(id=${note.id})}">-->
+        <!--                        <button class="btn btn-outline-success my-2 my-sm-0">Edit</button>-->
+        <!--                    </a>-->
+        <!--                </td>-->
+        <!--                <td align="center">-->
+        <!--                    <button type="button" class="btn btn-outline-danger my-2 my-sm-0" data-toggle="modal"-->
+        <!--                            data-target="#deleteModal"-->
+        <!--                            th:data-note-id="${note.id}" th:data-note-name="${note.title}">Delete-->
+        <!--                    </button>-->
+        <!--                </td>-->
+        <!--                <td align="center">-->
+        <!--                    <a>-->
+        <!--                        <button class="btn btn-outline-info my-2 my-sm-0"-->
+        <!--                                th:href="@{/note/share?id={id}(id=${note.id})}"-->
+        <!--                                onclick="copyURI(event)">Copy link-->
+        <!--                        </button>-->
+        <!--                    </a>-->
+        <!--                </td>-->
+        <!--            </tr>-->
+        <!--            </tbody>-->
+        <!--        </table>-->
+    </div>
+</div>
+</body>
+</html>

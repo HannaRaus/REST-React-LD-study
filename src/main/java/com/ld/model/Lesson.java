@@ -39,7 +39,7 @@ public class Lesson {
     @Column(name = "access_type")
     private AccessType accessType;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = com.ld.model.Tag.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Tag.class)
     @JoinTable(name = "lesson_tags",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))

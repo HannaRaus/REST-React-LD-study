@@ -60,7 +60,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="label" type="VARCHAR(50)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
     </changeSet>

@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Getter
 public enum MediaType {
-    VIDEO("Відео урок"),
-    TEXT("Текстовий урок");
+    VIDEO("Video lesson"),
+    TEXT("Images+text");
 
     private final String displayName;
 

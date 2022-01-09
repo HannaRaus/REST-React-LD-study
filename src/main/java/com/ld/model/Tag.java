@@ -1,8 +1,9 @@
 package com.ld.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -19,9 +20,10 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tags")
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Tag {
 
     @Id
@@ -30,10 +32,10 @@ public class Tag {
     @Column(name = "tag_id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "label", nullable = false)
+    @Column(name = "label", nullable = false, unique = true)
     private String label;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = com.ld.model.Lesson.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Lesson.class)
     @JoinTable(name = "lesson_tags",
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "lesson_id"))

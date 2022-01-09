@@ -14,8 +14,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Title</span>
         </div>
-        <input class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
-               id="title" name="title" type="text" placeholder="Your title here">
+        <input class="form-control" id="title" name="title" type="text" placeholder="Your title here">
     </div>
 
     <!--Description-->
@@ -24,8 +23,8 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Description</span>
         </div>
-        <textarea class="form-control" aria-label="With textarea" cols="150" rows="10"
-                  id="description" name="description" placeholder="Your title here">
+        <textarea class="form-control" cols="150" rows="5" id="description" name="description"
+                  placeholder="Your title here">
         </textarea>
     </div>
 
@@ -43,6 +42,25 @@
             </div>
         </div>
         <label class="form-control" for="public">public</label>
+    </div>
+
+    <!--List of tags-->
+    <div class="customTags" data-toggle="buttons">
+        <th:block th:each="tag : ${tags}">
+            <label for="tag" class="btn btn-outline-secondary">
+                <input type="checkbox" id="tag" name="tag">
+                <span th:text="${tag.label}"></span>
+            </label>
+        </th:block>
+    </div>
+    <!--Add new tag-->
+    <span class="tagErrorField" style="color:red"></span>
+    <div class="input-group mb-3">
+        <label for="label"></label>
+        <input type="text" class="form-control" id="label" name="label">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" onclick="createNewTag()">Add</button>
+        </div>
     </div>
 
     <!--Make me creator-->

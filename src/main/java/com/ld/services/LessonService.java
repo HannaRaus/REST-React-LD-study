@@ -10,17 +10,18 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class LessonService extends CrudService<Lesson> {
 
-    private final LessonRepository repository;
+    private final LessonRepository lessonRepository;
+    private final TagService tagService;
     private final UserService userService;
 
-    @Override
     protected JpaRepository<Lesson, UUID> getRepository() {
-        return repository;
+        return lessonRepository;
     }
 
     public void save(ValidateLessonRequest request) {
@@ -29,7 +30,9 @@ public class LessonService extends CrudService<Lesson> {
                 .description(request.getDescription())
                 .creationDate(LocalDate.now())
                 .accessType(AccessType.ofName(request.getAccessType()))
-//                .tags(request.getTags())
+                .tags(request.getTags().stream()
+                        .map(tagService::findByLabel)
+                        .collect(Collectors.toSet()))
 //                .contents(request.getContents())
                 .author(request.isUserAsAuthor() ?
                         userService.getCurrentUser()

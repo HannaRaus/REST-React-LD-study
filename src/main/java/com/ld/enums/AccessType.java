@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Getter
 public enum AccessType {
-    PRIVATE("Приватний"),
-    PUBLIC("Публічний");
+    PRIVATE("private"),
+    PUBLIC("public");
 
     private final String displayName;
 
