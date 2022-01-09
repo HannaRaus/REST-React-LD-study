@@ -47,8 +47,8 @@ public class LessonsController {
         return response;
     }
 
-    @InitBinder
-    public void tagBinding(WebDataBinder binder) {
-        binder.registerCustomEditor(Tag.class, "tags", new TagsEditor(tagService));
-    }
+//    @InitBinder
+//    public void tagBinding(WebDataBinder binder) {
+//        binder.registerCustomEditor(Tag.class, "tags", new TagsEditor(tagService));
+//    }
 }

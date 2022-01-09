@@ -21,6 +21,7 @@ public class LessonService extends CrudService<Lesson> {
     private final LessonRepository lessonRepository;
     private final TagService tagService;
     private final UserService userService;
+    private final ContentService contentService;
 
     protected JpaRepository<Lesson, UUID> getRepository() {
         return lessonRepository;
@@ -28,7 +29,7 @@ public class LessonService extends CrudService<Lesson> {
 
     public void save(ValidateLessonRequest request) {
         log.info("LessonService.save - Saving lesson from request '{}", request);
-        super.save(Lesson.builder()
+        Lesson lesson = Lesson.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())
                 .creationDate(LocalDate.now())
@@ -36,10 +37,12 @@ public class LessonService extends CrudService<Lesson> {
                 .tags(request.getTags().stream()
                         .map(tagService::findByLabel)
                         .collect(Collectors.toSet()))
-//                .contents(request.getContents())
+                .contents(contentService.parseContents(request.getContents()))
                 .author(request.isUserAsAuthor() ?
                         userService.getCurrentUser()
                         : null)
-                .build());
+                .build();
+        lesson.getContents().forEach(content -> content.setLesson(lesson));
+        super.save(lesson);
     }
 }

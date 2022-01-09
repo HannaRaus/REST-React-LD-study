@@ -23,9 +23,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Description</span>
         </div>
-        <textarea class="form-control" cols="150" rows="5" id="description" name="description"
-                  placeholder="Your title here">
-        </textarea>
+        <textarea class="form-control" cols="150" rows="5" id="description" name="description" placeholder="Your title here"></textarea>
     </div>
 
     <!--Access-->
@@ -59,8 +57,43 @@
         <label for="label"></label>
         <input type="text" class="form-control" id="label" name="label">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" onclick="createNewTag()">Add</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="createNewTag()">Add new</button>
         </div>
+    </div>
+
+    <span class="contentErrorField" style="color:red"></span>
+    <h5 align="center">Add content</h5>
+    <!--    Add content-->
+    <span class="titleContentErrorField" style="color:red"></span>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Content title</span>
+        </div>
+        <input class="form-control" id="contentTitle" name="contentTitle" type="text" placeholder="Content title here">
+    </div>
+
+    <span class="urlContentErrorField" style="color:red"></span>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" id="contentUrl" name="contentUrl" placeholder="Your url here">
+        <div class="input-group-append">
+            <select class="custom-select" id="mediaType" name="mediaType">
+                <option selected value="VIDEO">Video</option>
+                <option value="IMAGE">Image</option>
+            </select>
+        </div>
+    </div>
+
+    <span class="commentContentErrorField" style="color:red"></span>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Comment</span>
+        </div>
+        <textarea class="form-control" cols="150" rows="2" id="contentComment" name="contentComment" placeholder="Comment here"></textarea>
+    </div>
+
+    <div class="input-group mb-3">
+        <button class="btn btn-outline-secondary btn-block" onclick="validateContent()">Add new content</button>
+        <span class="contentSavedField" style="color:olivedrab"></span>
     </div>
 
     <!--Make me creator-->
@@ -78,6 +111,8 @@
 </div>
 </body>
 <script src="/js/validateLesson.js"></script>
+<script src="/js/validateTag.js"></script>
+<script src="/js/validateContent.js"></script>
 <!--Script that makes all inputs the same width-->
 <script src="/js/style.js"></script>
 </html>

@@ -22,7 +22,8 @@ public class ValidateLessonRequest {
 
     private List<String> tags;
 
-    private List<Content> contents;
+    @NotNull
+    private List<String> contents;
 
     @NotNull
     private boolean userAsAuthor;
