@@ -1,6 +1,8 @@
-package com.ld.validation;
+package com.ld.services.validation;
 
-import com.ld.enums.AccessType;
+import com.ld.validation.ValidateLessonRequest;
+import com.ld.validation.ValidateResponse;
+import com.ld.validation.ValidationError;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.Objects.isNull;
 
 @Slf4j
 @Service

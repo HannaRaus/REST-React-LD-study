@@ -3,7 +3,9 @@ package com.ld.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -35,6 +37,8 @@ public class Tag {
     @Column(name = "label", nullable = false, unique = true)
     private String label;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Lesson.class)
     @JoinTable(name = "lesson_tags",
             joinColumns = @JoinColumn(name = "tag_id"),

@@ -1,8 +1,7 @@
 package com.ld.controllers;
 
-import com.ld.model.User;
 import com.ld.services.UserService;
-import com.ld.validation.UserValidationService;
+import com.ld.services.validation.UserValidationService;
 import com.ld.validation.ValidateResponse;
 import com.ld.validation.ValidateUserRequest;
 import lombok.RequiredArgsConstructor;

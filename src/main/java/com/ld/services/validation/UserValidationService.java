@@ -1,6 +1,9 @@
-package com.ld.validation;
+package com.ld.services.validation;
 
 import com.ld.services.UserService;
+import com.ld.validation.ValidateResponse;
+import com.ld.validation.ValidateUserRequest;
+import com.ld.validation.ValidationError;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

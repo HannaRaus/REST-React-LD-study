@@ -5,6 +5,7 @@ import com.ld.model.Lesson;
 import com.ld.repositories.LessonRepository;
 import com.ld.validation.ValidateLessonRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LessonService extends CrudService<Lesson> {
@@ -25,6 +27,7 @@ public class LessonService extends CrudService<Lesson> {
     }
 
     public void save(ValidateLessonRequest request) {
+        log.info("LessonService.save - Saving lesson from request '{}", request);
         super.save(Lesson.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())

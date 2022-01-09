@@ -1,7 +1,7 @@
 package com.ld.controllers;
 
 import com.ld.services.TagService;
-import com.ld.validation.TagValidationService;
+import com.ld.services.validation.TagValidationService;
 import com.ld.validation.ValidateResponse;
 import com.ld.validation.ValidateTagRequest;
 import lombok.RequiredArgsConstructor;
