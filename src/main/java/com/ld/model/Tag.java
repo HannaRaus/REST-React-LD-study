@@ -1,5 +1,6 @@
 package com.ld.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +38,7 @@ public class Tag {
     @Column(name = "label", nullable = false, unique = true)
     private String label;
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Lesson.class)

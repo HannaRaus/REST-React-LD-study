@@ -1,5 +1,6 @@
 package com.ld.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ld.enums.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,6 +49,7 @@ public class Content {
     @Column(name = "comment")
     private String comment;
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
