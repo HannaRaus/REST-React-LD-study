@@ -24,25 +24,15 @@
         <h2 th:switch="${endpoint}">
             <!--Render correct title after search "Result + size"-->
             <span th:case="'/lessons/search'">Found lessons - <span th:text="${listSize}"></span></span>
-            <span th:case="'/lessons/search/author'">Found lessons for author - <span th:text="${listSize}"></span></span>
+            <span th:case="'/lessons/search/author'">Found lessons for author - <span
+                    th:text="${listSize}"></span></span>
             <!--In other cases show "My notes + size"-->
             <span th:case="*">Lessons - <span th:text="${listSize}"></span></span>
             <a href="/lessons/create">
                 <button class="btn btn-warning my-2 my-sm-0" type="submit">Create</button>
             </a>
         </h2>
-        <!--List tags   -->
-        <div>
-            <label for="tag" class="btn btn-outline-success">
-                <a href="/lessons/all" type="button">Show all</a>
-            </label>
-            <th:block th:each="tag : ${tags}" class="customTags" data-toggle="buttons">
-                <label for="tag" class="btn btn-outline-secondary">
-                    <input type="checkbox" id="tag" name="tag" onclick="filterByTag()">
-                    <span th:text="${tag.label}"></span>
-                </label>
-            </th:block>
-        </div>
+        <div th:replace="fragments :: tags"></div>
         <table class="table table-hover" id="tab">
             <thead>
             <tr>
