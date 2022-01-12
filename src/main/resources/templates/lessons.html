@@ -47,7 +47,7 @@
             <tr th:each="lesson : ${lessons}">
                 <td scope="row" th:text="${lesson.title}"></td>
                 <!-- method to truncate lesson description and add url button for read more -->
-                <td class='content' th:data-href="@{/lessons?id={id}(id=${lesson.id})}"
+                <td class='content' th:data-href="@{/lessons/share?id={id}(id=${lesson.id})}"
                     th:text="${lesson.description}"></td>
                 <td th:text="${lesson.accessType}"></td>
                 <td th:with="author= ${lesson.author != null} ? ${lesson.author.name}">

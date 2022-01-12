@@ -1,5 +1,6 @@
 package com.ld.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ld.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -56,6 +57,7 @@ public class User {
     @Column(name = "user_role")
     private UserRole userRole;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Lesson.class)
     @JoinTable(name = "user_favorite_lessons",
             joinColumns = @JoinColumn(name = "user_id"),

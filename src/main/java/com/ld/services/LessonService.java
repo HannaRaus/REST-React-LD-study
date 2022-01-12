@@ -1,6 +1,7 @@
 package com.ld.services;
 
 import com.ld.enums.AccessType;
+import com.ld.exceptions.EntityNotFoundException;
 import com.ld.model.Lesson;
 import com.ld.model.Tag;
 import com.ld.repositories.LessonRepository;
@@ -49,6 +50,12 @@ public class LessonService extends CrudService<Lesson> {
         super.save(lesson);
     }
 
+    public Lesson findById(UUID id) {
+        log.info("LessonService.findById - Searching lesson with id '{}", id);
+        return lessonRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(String.format("Lesson with id [%s] doesn't exist", id)));
+    }
+
     public List<Lesson> findByTitleLike(String searchWord) {
         log.info("LessonService.findByTitleLike - Searching lesson with title '{}", searchWord);
         return lessonRepository.findByTitleIgnoreCaseContains(searchWord);
@@ -62,5 +69,11 @@ public class LessonService extends CrudService<Lesson> {
     public List<Lesson> findByAuthor(String author) {
         log.info("LessonService.findByAuthor - Searching lesson by author '{}", author);
         return lessonRepository.findByAuthor_Name(author);
+    }
+
+    public List<Lesson> checkForAccess(List<Lesson> lessons) {
+        return lessons.stream()
+                .filter(userService::isPresentForUser)
+                .collect(Collectors.toList());
     }
 }

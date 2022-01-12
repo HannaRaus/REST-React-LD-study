@@ -1,7 +1,9 @@
 package com.ld.services;
 
+import com.ld.enums.AccessType;
 import com.ld.enums.UserRole;
 import com.ld.exceptions.UserAlreadyExistsException;
+import com.ld.model.Lesson;
 import com.ld.model.User;
 import com.ld.repositories.UserRepository;
 import com.ld.validation.ValidateUserRequest;
@@ -13,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -41,6 +42,7 @@ public class UserService extends CrudService<User> {
 
     @Override
     public void save(User user) {
+        log.info("UserService.save - Saving user '{}", user);
         if (isRegistered(user.getPhone())) {
             log.error("UserService.save - User with specified phone number '{}' already exists", user.getPhone());
             throw new UserAlreadyExistsException(
@@ -51,21 +53,15 @@ public class UserService extends CrudService<User> {
     }
 
     public User findByPhone(String phone) {
-        Optional<User> user = userRepository.findByPhone(phone);
-        if (user.isEmpty()) {
-            log.error("UserService.save - User with phone '{}' doesn't exist", phone);
-            throw new UsernameNotFoundException(String.format("User with phone [%s] doesn't exist", phone));
-        }
-        return user.get();
+        log.info("UserService.findByPhone - Searching user by phone '{}", phone);
+        return userRepository.findByPhone(phone).orElseThrow(() ->
+                new UsernameNotFoundException(String.format("User with phone [%s] doesn't exist", phone)));
     }
 
     public User findByName(String name) {
-        Optional<User> user = userRepository.findByName(name);
-        if (user.isEmpty()) {
-            log.error("UserService.save - User with name '{}' doesn't exist", name);
-            throw new UsernameNotFoundException(String.format("User with name [%s] doesn't exist", name));
-        }
-        return user.get();
+        log.info("UserService.findByName - Searching user by name '{}", name);
+        return userRepository.findByName(name).orElseThrow(() ->
+                new UsernameNotFoundException(String.format("User with name [%s] doesn't exist", name)));
     }
 
     public boolean isRegistered(String phone) {
@@ -75,5 +71,11 @@ public class UserService extends CrudService<User> {
     public User getCurrentUser() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         return findByName(name);
+    }
+
+    public boolean isPresentForUser(Lesson lesson) {
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        log.info("UserService.isPresentForUser - Checking if lesson is public or belongs to user '{}", currentUser);
+        return lesson.getAccessType().equals(AccessType.PUBLIC) || lesson.getAuthor().getName().equals(currentUser);
     }
 }

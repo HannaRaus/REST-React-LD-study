@@ -1,4 +1,4 @@
-function validateAndCreateLesson() {
+function validateSendLesson(url) {
 
     const WRONG_TITLE_LENGTH = "Title must be in range of 5-100 symbols";
     const WRONG_DESCRIPTION_LENGTH = "Description must be under 500 symbols";
@@ -23,7 +23,7 @@ function validateAndCreateLesson() {
     });
 
     let request = new XMLHttpRequest();
-    let url = "/lessons/create";
+    // let url = "/lessons/create";
     request.open("POST", url, true);
     request.setRequestHeader("Content-Type", "application/json");
     request.responseType = 'json';

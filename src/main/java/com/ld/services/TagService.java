@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static java.util.Objects.isNull;
@@ -36,12 +35,8 @@ public class TagService extends CrudService<Tag> {
 
     public Tag findByLabel(String label) {
         log.info("TagService.findByLabel - Searching tag by label '{}", label);
-        Optional<Tag> tag = repository.findByLabel(label);
-        if (tag.isEmpty()) {
-            log.error("TagService.findByLabel - Tag with label '{}' doesn't exist", label);
-            throw new EntityNotFoundException(String.format("Tag with Label [%s] doesn't exist", label));
-        }
-        return tag.get();
+        return repository.findByLabel(label).orElseThrow(() ->
+                new EntityNotFoundException(String.format("Tag with Label [%s] doesn't exist", label)));
     }
 
     public List<Tag> findSameTags(String label) {
@@ -59,6 +54,7 @@ public class TagService extends CrudService<Tag> {
         try {
             findByLabel(label);
         } catch (EntityNotFoundException ex) {
+            log.error("TagService.tagAlreadyExists - Error while searching tag by label '{}", label, ex);
             return false;
         }
         return true;
@@ -69,7 +65,8 @@ public class TagService extends CrudService<Tag> {
         List<Tag> tags;
         try {
             tags = findSameTags(label);
-        } catch (EntityNotFoundException exception) {
+        } catch (EntityNotFoundException ex) {
+            log.error("TagService.isTagUnique - Error while searching tag by label '{}", label, ex);
             return true;
         }
         return isNull(tags) || tags.isEmpty();
