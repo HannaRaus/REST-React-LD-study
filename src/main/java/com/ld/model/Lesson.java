@@ -53,7 +53,7 @@ public class Lesson {
     @Column(name = "access_type")
     private AccessType accessType;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = com.ld.model.Tag.class)
+    @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Tag.class)
     @JoinTable(name = "lesson_tags",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
@@ -62,7 +62,7 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Content> contents;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 }

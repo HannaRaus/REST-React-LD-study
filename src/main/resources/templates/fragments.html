@@ -48,6 +48,17 @@
                     <a class="nav-link active" href="/lessons/all">Lessons</a>
                 </li>
             </ul>
+            <ul class="navbar-nav mr-auto"></ul>
+            <!--Set variable current endpoint-->
+            <div th:with="endpoint=${#httpServletRequest.requestURI}">
+                <!--display search form only on "/note/list" or "/note/search" endpoints-->
+                <form th:if="${endpoint == '/lessons/all'} or ${endpoint == '/lessons/search'}"
+                      sec:authorize="isFullyAuthenticated()" class="form-inline my-2 my-lg-0" action="/lessons/search">
+                    <input class="form-control mr-sm-2" style="width: 300px;" placeholder="Search" aria-label="Search"
+                           name="contains" id="contains" type="search" th:value="${contains}" >
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
             <!--for authorised users only-->
             <ul class="navbar-nav mr-auto"></ul>
             <form sec:authorize="isFullyAuthenticated()" class="form-inline my-2 my-lg-0" action="/logout">
@@ -67,7 +78,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Note will be deleted, are you sure you want to proceed?</p>
+                <p>Lesson will be deleted, are you sure you want to proceed?</p>
             </div>
             <div class="modal-footer">
                 <a class="btn btn-danger" href="#">Delete anyway</a>

@@ -1,9 +1,9 @@
 package com.ld.controllers;
 
+import com.ld.model.Lesson;
 import com.ld.model.Tag;
 import com.ld.services.LessonService;
 import com.ld.services.TagService;
-import com.ld.services.editors.TagsEditor;
 import com.ld.services.validation.LessonValidationService;
 import com.ld.validation.ValidateLessonRequest;
 import com.ld.validation.ValidateResponse;
@@ -11,8 +11,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -28,6 +32,7 @@ public class LessonsController {
     public String showLessons(Model model) {
         log.info("LessonsController.showLessons - rendering lessons list page");
         model.addAttribute("lessons", lessonService.readAll());
+        model.addAttribute("tags", tagService.readAll());
         return "lessons";
     }
 
@@ -45,6 +50,28 @@ public class LessonsController {
             lessonService.save(request);
         }
         return response;
+    }
+
+    @GetMapping(path = "/search")
+    public String showSearchForm(@RequestParam(name = "contains") String contains, Model model) {
+        model.addAttribute("lessons", lessonService.findByTitleLike(contains));
+        return "lessons";
+    }
+
+    @GetMapping(path = "/search/tags")
+    public String showSearchForm(@RequestParam(name = "tags") Set<String> tags, Model model) {
+        Set<Tag> searchTags = tags.stream()
+                .map(tagService::findByLabel)
+                .collect(Collectors.toSet());
+        List<Lesson> lessons = lessonService.findByTagsIn(searchTags);
+        model.addAttribute("lessons", lessons);
+        return "lessons";
+    }
+
+    @GetMapping(path = "/delete")
+    public String delete(@RequestParam(name = "id") UUID id) {
+        lessonService.delete(id);
+        return "redirect:/lessons/all";
     }
 
 //    @InitBinder

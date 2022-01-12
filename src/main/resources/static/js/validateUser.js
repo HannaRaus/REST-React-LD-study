@@ -26,7 +26,7 @@ function validateAndCreateUser() {
         if (request.readyState === 4 && request.status === 200) {
             const operationStatus = request.response;
             if (operationStatus.success === true) {
-                window.location.href = '/login';
+                window.location.href = '/lessons/all';
             } else {
                 operationStatus.errors.forEach(function (error) {
                     switch (error) {

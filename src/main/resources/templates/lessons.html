@@ -15,7 +15,7 @@
             <!--In other cases-->
             <span th:case="*">No lessons yet</span>
             <a href="/lessons/create">
-                <button class="btn btn-warning my-2 my-sm-0" type="submit">Create</button>
+                <button class="btn btn-warning my-2 my-sm-0" type="submit">Create new</button>
             </a>
         </h2>
     </div>
@@ -25,50 +25,74 @@
             <!--Render correct title after search "Result + size"-->
             <span th:case="'/lessons/search'">Found lessons - <span th:text="${listSize}"></span></span>
             <!--In other cases show "My notes + size"-->
-            <span th:case="*">My lessons - <span th:text="${listSize}"></span></span>
+            <span th:case="*">Lessons - <span th:text="${listSize}"></span></span>
             <a href="/lessons/create">
                 <button class="btn btn-warning my-2 my-sm-0" type="submit">Create</button>
             </a>
         </h2>
-        <!--        <table class="table table-hover" id="tab">-->
-        <!--            <thead>-->
-        <!--            <tr>-->
-        <!--                <th class="col-sm-1" scope="col">Name</th>-->
-        <!--                <th scope="col">Description</th>-->
-        <!--                <th class="col-sm-1" scope="col-">Access</th>-->
-        <!--                <th class="col-sm-2" scope="col" colspan="3"></th>-->
-        <!--            </tr>-->
-        <!--            </thead>-->
-        <!--            <tbody>-->
-        <!--            <tr th:each="note : ${notes}">-->
-        <!--                <td scope="row" th:text="${note.title}"></td>-->
-        <!--                &lt;!&ndash; method to truncate note content and add url button for read more &ndash;&gt;-->
-        <!--                <td class='content' th:data-href="@{/note/share?id={id}(id=${note.id})}"-->
-        <!--                    th:text="${note.content}"></td>-->
-        <!--                <td th:text="${note.accessType}"></td>-->
-        <!--                <td align="center">-->
-        <!--                    <a th:href="@{/note/edit?id={id}(id=${note.id})}">-->
-        <!--                        <button class="btn btn-outline-success my-2 my-sm-0">Edit</button>-->
-        <!--                    </a>-->
-        <!--                </td>-->
-        <!--                <td align="center">-->
-        <!--                    <button type="button" class="btn btn-outline-danger my-2 my-sm-0" data-toggle="modal"-->
-        <!--                            data-target="#deleteModal"-->
-        <!--                            th:data-note-id="${note.id}" th:data-note-name="${note.title}">Delete-->
-        <!--                    </button>-->
-        <!--                </td>-->
-        <!--                <td align="center">-->
-        <!--                    <a>-->
-        <!--                        <button class="btn btn-outline-info my-2 my-sm-0"-->
-        <!--                                th:href="@{/note/share?id={id}(id=${note.id})}"-->
-        <!--                                onclick="copyURI(event)">Copy link-->
-        <!--                        </button>-->
-        <!--                    </a>-->
-        <!--                </td>-->
-        <!--            </tr>-->
-        <!--            </tbody>-->
-        <!--        </table>-->
+        <!--List tags   -->
+        <div>
+            <label for="tag" class="btn btn-outline-success">
+                <a href="/lessons/all" type="button">Show all</a>
+            </label>
+            <th:block th:each="tag : ${tags}" class="customTags" data-toggle="buttons">
+                <label for="tag" class="btn btn-outline-secondary">
+                    <input type="checkbox" id="tag" name="tag" onclick="filterByTag()">
+                    <span th:text="${tag.label}"></span>
+                </label>
+            </th:block>
+        </div>
+        <table class="table table-hover" id="tab">
+            <thead>
+            <tr>
+                <th class="col-sm-1" scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th class="col-sm-1" scope="col-">Access</th>
+                <th class="col-sm-1" scope="col-">Author</th>
+                <th class="col-sm-2" scope="col" colspan="3"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lesson : ${lessons}">
+                <td scope="row" th:text="${lesson.title}"></td>
+                <!-- method to truncate lesson description and add url button for read more -->
+                <td class='content' th:data-href="@{/lessons?id={id}(id=${lesson.id})}"
+                    th:text="${lesson.description}"></td>
+                <td th:text="${lesson.accessType}"></td>
+                <td th:text="${lesson.author != null} ? ${lesson.author.name}"></td>
+
+                <td align="center">
+                    <a th:href="@{/lessons/edit?id={id}(id=${lesson.id})}">
+                        <button class="btn btn-outline-success my-2 my-sm-0">Edit</button>
+                    </a>
+                </td>
+                <td align="center">
+                    <button type="button" class="btn btn-outline-danger my-2 my-sm-0" data-toggle="modal"
+                            data-target="#deleteModal"
+                            th:data-lesson-id="${lesson.id}" th:data-lesson-title="${lesson.title}">Delete
+                    </button>
+                </td>
+                <td align="center">
+                    <a>
+                        <button class="btn btn-outline-info my-2 my-sm-0"
+                                th:href="@{/lessons?id={id}(id=${lesson.id})}"
+                                onclick="copyURI(event)">Copy link
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+<!-- Modal window with warning for delete operation-->
+<div th:replace="fragments :: modalDelete"></div>
+
+<!-- scripts -->
+<script src="/js/copyUrl.js"></script>
+<script src="/js/modal.js"></script>
+<!-- method to truncate note content and add url button for read more -->
+<script src="/js/trimTitleToSize.js"></script>
+<script src="/js/filters.js"></script>
 </body>
 </html>

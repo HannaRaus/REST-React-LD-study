@@ -1,6 +1,5 @@
 package com.ld.validation;
 
-import com.ld.model.Content;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -2,6 +2,7 @@ package com.ld.services;
 
 import com.ld.enums.AccessType;
 import com.ld.model.Lesson;
+import com.ld.model.Tag;
 import com.ld.repositories.LessonRepository;
 import com.ld.validation.ValidateLessonRequest;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -44,5 +47,15 @@ public class LessonService extends CrudService<Lesson> {
                 .build();
         lesson.getContents().forEach(content -> content.setLesson(lesson));
         super.save(lesson);
+    }
+
+    public List<Lesson> findByTitleLike(String searchWord) {
+        log.info("LessonService.findByTitleLike - Searching lesson with title '{}", searchWord);
+        return lessonRepository.findByTitleIgnoreCaseContains(searchWord);
+    }
+
+    public List<Lesson> findByTagsIn(Set<Tag> tags) {
+        log.info("LessonService.findByTitleLike - Searching lesson with title '{}", tags);
+        return lessonRepository.findByTagsIn(tags);
     }
 }
