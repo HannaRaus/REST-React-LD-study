@@ -24,8 +24,8 @@ public class LessonService extends CrudService<Lesson> {
 
     private final LessonRepository lessonRepository;
     private final TagService tagService;
-    private final UserService userService;
     private final ContentService contentService;
+    private final SSOService ssoService;
 
     protected JpaRepository<Lesson, UUID> getRepository() {
         return lessonRepository;
@@ -43,7 +43,7 @@ public class LessonService extends CrudService<Lesson> {
                         .collect(Collectors.toSet()))
                 .contents(contentService.parseContents(request.getContents()))
                 .author(request.isUserAsAuthor() ?
-                        userService.getCurrentUser()
+                        ssoService.getCurrentUser()
                         : null)
                 .build();
         lesson.getContents().forEach(content -> content.setLesson(lesson));
@@ -69,11 +69,5 @@ public class LessonService extends CrudService<Lesson> {
     public List<Lesson> findByAuthor(String author) {
         log.info("LessonService.findByAuthor - Searching lesson by author '{}", author);
         return lessonRepository.findByAuthor_Name(author);
-    }
-
-    public List<Lesson> checkForAccess(List<Lesson> lessons) {
-        return lessons.stream()
-                .filter(userService::isPresentForUser)
-                .collect(Collectors.toList());
     }
 }

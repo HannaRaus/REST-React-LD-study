@@ -1,10 +1,9 @@
 package com.ld.controllers;
 
-import com.ld.exceptions.AccessDeniedException;
 import com.ld.model.Lesson;
 import com.ld.services.LessonService;
+import com.ld.services.SSOService;
 import com.ld.services.TagService;
-import com.ld.services.UserService;
 import com.ld.services.validation.LessonValidationService;
 import com.ld.validation.ValidateLessonRequest;
 import com.ld.validation.ValidateResponse;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -24,13 +22,12 @@ public class LessonsController {
     private final LessonService lessonService;
     private final LessonValidationService validationService;
     private final TagService tagService;
-    private final UserService userService;
+    private final SSOService ssoService;
 
     @GetMapping(path = "/all")
     public String showLessons(Model model) {
-        List<Lesson> lessons = lessonService.checkForAccess(lessonService.readAll());
         model.addAttribute("tags", tagService.readAll());
-        model.addAttribute("lessons", lessons);
+        model.addAttribute("lessons", lessonService.readAll());
         return "lessons";
     }
 
@@ -54,16 +51,12 @@ public class LessonsController {
     @ResponseBody
     public Lesson lesson(@RequestParam(name = "id") UUID id) {
         Lesson lesson = lessonService.findById(id);
-        if (userService.isPresentForUser(lesson)) {
-            return lesson;
-        } else {
-            throw new AccessDeniedException("You are not allowed to this content");
-        }
+        ssoService.checkUserPermission(lesson);
+        return lesson;
     }
 
     @GetMapping(path = "/share")
     public String showLesson(@RequestParam(name = "id") UUID id) {
-        userService.getCurrentUser();
         return "lesson";
     }
 
@@ -84,6 +77,7 @@ public class LessonsController {
 
     @GetMapping(path = "/delete")
     public String delete(@RequestParam(name = "id") UUID id) {
+        ssoService.checkUserPermission(lessonService.findById(id));
         lessonService.delete(id);
         return "redirect:/lessons/all";
     }

@@ -1,16 +1,13 @@
 package com.ld.services;
 
-import com.ld.enums.AccessType;
 import com.ld.enums.UserRole;
 import com.ld.exceptions.UserAlreadyExistsException;
-import com.ld.model.Lesson;
 import com.ld.model.User;
 import com.ld.repositories.UserRepository;
 import com.ld.validation.ValidateUserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +18,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserService extends CrudService<User> {
+
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -66,16 +64,5 @@ public class UserService extends CrudService<User> {
 
     public boolean isRegistered(String phone) {
         return userRepository.findByPhone(phone).isPresent();
-    }
-
-    public User getCurrentUser() {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        return findByName(name);
-    }
-
-    public boolean isPresentForUser(Lesson lesson) {
-        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        log.info("UserService.isPresentForUser - Checking if lesson is public or belongs to user '{}", currentUser);
-        return lesson.getAccessType().equals(AccessType.PUBLIC) || lesson.getAuthor().getName().equals(currentUser);
     }
 }
