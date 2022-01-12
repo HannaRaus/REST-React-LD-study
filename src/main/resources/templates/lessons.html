@@ -79,7 +79,7 @@
                 <td align="center">
                     <a>
                         <button class="btn btn-outline-info my-2 my-sm-0"
-                                th:href="@{/lessons?id=${lesson.id}}"
+                                th:href="@{/lessons?id={id}(id=${lesson.id})}"
                                 onclick="copyURI(event)">Copy link
                         </button>
                     </a>
