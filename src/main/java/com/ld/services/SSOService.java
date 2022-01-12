@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,7 +29,9 @@ public class SSOService {
     public boolean isPresentForUser(Lesson lesson) {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info("SSOService.isPresentForUser - Checking if lesson is public or belongs to user '{}", currentUser);
-        return lesson.getAccessType().equals(AccessType.PUBLIC) || lesson.getAuthor().getName().equals(currentUser);
+        return lesson.getAccessType().equals(AccessType.PUBLIC)
+                || isNull(lesson.getAuthor())
+                || lesson.getAuthor().getName().equals(currentUser);
     }
 
     public void checkUserPermission(Lesson lesson) {
@@ -37,6 +41,7 @@ public class SSOService {
             throw new AccessDeniedException("You are not allowed to this content");
         }
     }
+
     public List<Lesson> checkUserPermission(List<Lesson> lessons) {
         return lessons.stream()
                 .filter(this::isPresentForUser)
