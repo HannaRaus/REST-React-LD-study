@@ -55,7 +55,7 @@
                 <form th:if="${endpoint == '/lessons/all'} or ${endpoint == '/lessons/search'}"
                       sec:authorize="isFullyAuthenticated()" class="form-inline my-2 my-lg-0" action="/lessons/search">
                     <input class="form-control mr-sm-2" style="width: 300px;" placeholder="Search" aria-label="Search"
-                           name="contains" id="contains" type="search" th:value="${contains}" >
+                           name="contains" id="contains" type="search" th:value="${contains}">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>

@@ -17,13 +17,13 @@ public abstract class CrudService<T> {
 
     @Transactional
     public void save(T entity) {
-        log.info("CrudService.save() - entity" + entity);
+        log.info("CrudService.save() - entity {}", entity);
         getRepository().save(entity);
     }
 
     @Transactional
     public T read(UUID id) {
-        log.info("CrudService.read() - id" + id);
+        log.info("CrudService.read() - id {}", id);
         return getRepository().findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("There is no object with such id -" + id));
     }
@@ -36,13 +36,13 @@ public abstract class CrudService<T> {
 
     @Transactional
     public T update(T entity) {
-        log.info("CrudService.update() - entity" + entity);
+        log.info("CrudService.update() - entity {}", entity);
         return getRepository().save(entity);
     }
 
     @Transactional
     public void delete(UUID id) {
-        log.info("CrudService.delete() - id" + id);
+        log.info("CrudService.delete - id {}", id);
         getRepository().deleteById(id);
     }
 }
