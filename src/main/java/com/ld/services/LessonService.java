@@ -58,4 +58,9 @@ public class LessonService extends CrudService<Lesson> {
         log.info("LessonService.findByTitleLike - Searching lesson with title '{}", tags);
         return lessonRepository.findByTagsIn(tags);
     }
+
+    public List<Lesson> findByAuthor(String author) {
+        log.info("LessonService.findByAuthor - Searching lesson by author '{}", author);
+        return lessonRepository.findByAuthor_Name(author);
+    }
 }

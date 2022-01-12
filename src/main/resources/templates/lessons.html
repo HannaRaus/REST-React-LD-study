@@ -24,6 +24,7 @@
         <h2 th:switch="${endpoint}">
             <!--Render correct title after search "Result + size"-->
             <span th:case="'/lessons/search'">Found lessons - <span th:text="${listSize}"></span></span>
+            <span th:case="'/lessons/search/author'">Found lessons for author - <span th:text="${listSize}"></span></span>
             <!--In other cases show "My notes + size"-->
             <span th:case="*">Lessons - <span th:text="${listSize}"></span></span>
             <a href="/lessons/create">
@@ -59,8 +60,11 @@
                 <td class='content' th:data-href="@{/lessons?id={id}(id=${lesson.id})}"
                     th:text="${lesson.description}"></td>
                 <td th:text="${lesson.accessType}"></td>
-                <td th:text="${lesson.author != null} ? ${lesson.author.name}"></td>
-
+                <td th:with="author= ${lesson.author != null} ? ${lesson.author.name}">
+                    <a th:href="@{/lessons/search/author?name={name}(name=${author})}">
+                        <span th:text="${author}"></span>
+                    </a>
+                </td>
                 <td align="center">
                     <a th:href="@{/lessons/edit?id={id}(id=${lesson.id})}">
                         <button class="btn btn-outline-success my-2 my-sm-0">Edit</button>
@@ -75,7 +79,7 @@
                 <td align="center">
                     <a>
                         <button class="btn btn-outline-info my-2 my-sm-0"
-                                th:href="@{/lessons?id={id}(id=${lesson.id})}"
+                                th:href="@{/lessons?id=${lesson.id}}"
                                 onclick="copyURI(event)">Copy link
                         </button>
                     </a>

@@ -16,4 +16,6 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
     List<Lesson> findByTagsIn(Set<Tag> tags);
 
+    List<Lesson> findByAuthor_Name(String author);
+
 }
