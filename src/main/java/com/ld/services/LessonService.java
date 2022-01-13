@@ -1,6 +1,6 @@
 package com.ld.services;
 
-import com.ld.enums.AccessType;
+import com.ld.model.enums.AccessType;
 import com.ld.exceptions.EntityNotFoundException;
 import com.ld.model.Lesson;
 import com.ld.model.Tag;

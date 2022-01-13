@@ -1,6 +1,6 @@
 package com.ld.services;
 
-import com.ld.enums.UserRole;
+import com.ld.model.enums.UserRole;
 import com.ld.exceptions.UserAlreadyExistsException;
 import com.ld.model.User;
 import com.ld.repositories.UserRepository;

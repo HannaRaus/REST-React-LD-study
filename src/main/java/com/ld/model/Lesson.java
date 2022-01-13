@@ -1,7 +1,7 @@
 package com.ld.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ld.enums.AccessType;
+import com.ld.model.enums.AccessType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

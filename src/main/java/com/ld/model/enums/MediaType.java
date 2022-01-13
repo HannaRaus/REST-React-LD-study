@@ -1,4 +1,4 @@
-package com.ld.enums;
+package com.ld.model.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

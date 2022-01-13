@@ -1,7 +1,7 @@
 package com.ld.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ld.enums.MediaType;
+import com.ld.model.enums.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

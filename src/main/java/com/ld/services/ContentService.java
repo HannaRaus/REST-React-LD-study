@@ -2,7 +2,7 @@ package com.ld.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ld.enums.MediaType;
+import com.ld.model.enums.MediaType;
 import com.ld.model.Content;
 import com.ld.repositories.ContentRepository;
 import com.ld.services.editors.GsonLocalDateTime;

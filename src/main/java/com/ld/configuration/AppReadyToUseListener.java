@@ -1,6 +1,6 @@
 package com.ld.configuration;
 
-import com.ld.enums.UserRole;
+import com.ld.model.enums.UserRole;
 import com.ld.model.User;
 import com.ld.services.UserService;
 import lombok.RequiredArgsConstructor;
