@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 public enum MediaType {
     VIDEO("Video"),
-    IMAGE_("Image");
+    IMAGE("Image");
 
     private final String displayName;
 

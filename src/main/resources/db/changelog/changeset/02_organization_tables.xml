@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="001" author="raus">
+        <modifyDataType
+                columnName="description"
+                newDataType="VARCHAR(5000)"
+                tableName="lessons"/>
+    </changeSet>
+    <changeSet id="002" author="raus">
+        <modifyDataType
+                columnName="comment"
+                newDataType="VARCHAR(2000)"
+                tableName="contents"/>
+    </changeSet>
+
+</databaseChangeLog>
