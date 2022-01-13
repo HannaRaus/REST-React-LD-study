@@ -1,11 +1,6 @@
 let localStorage = window.sessionStorage;
 
 function validateContent() {
-    const WRONG_TITLE_LENGTH = "Title must be under 100 symbols";
-    const WRONG_URL_LENGTH = "Url can't be empty and must be under 500 symbols";
-    const WRONG_URL_FORMAT = "Url has incorrect path";
-    const WRONG_COMMENT_LENGTH = "Comment must be under 500 symbols";
-    const SUCCESS_SAVE = "Content added";
 
     let titleContentErrorField = document.querySelector('.titleContentErrorField');
     titleContentErrorField.innerHTML = null;
@@ -34,18 +29,18 @@ function validateContent() {
                 window.location.reload();
             } else {
                 operationStatus.errors.forEach(function (error) {
-                    switch (error) {
+                    switch (error.name) {
                         case 'WRONG_TITLE_LENGTH':
-                            titleContentErrorField.innerHTML = WRONG_TITLE_LENGTH;
+                            titleContentErrorField.innerHTML = error.message;
                             break;
                         case 'WRONG_URL_LENGTH':
-                            urlContentErrorField.innerHTML = WRONG_URL_LENGTH;
+                            urlContentErrorField.innerHTML = error.message;
                             break;
                         case 'WRONG_URL_FORMAT':
-                            urlContentErrorField.innerHTML = WRONG_URL_FORMAT;
+                            urlContentErrorField.innerHTML = error.message;
                             break;
                         case 'WRONG_COMMENT_LENGTH':
-                            commentContentErrorField.innerHTML = WRONG_COMMENT_LENGTH;
+                            commentContentErrorField.innerHTML = error.message;
                             break;
                     }
                 });

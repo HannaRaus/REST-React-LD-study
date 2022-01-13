@@ -1,10 +1,5 @@
 function validateAndCreateUser() {
 
-    const WRONG_USER_NAME_FORMAT = "Name must be in range of 3-50 symbols";
-    const USER_ALREADY_REGISTERED = "User with defined number already registered";
-    const INCORRECT_PHONE_NUMBER = "Incorrect phone number. Must be in +380671111111 format";
-    const WRONG_PASSWORD_FORMAT = "Password must be in range of 5-50 symbols";
-
     let usernameErrorField = document.querySelector('.usernameErrorField');
     usernameErrorField.innerHTML = null;
     let phoneErrorField = document.querySelector('.phoneErrorField');
@@ -29,18 +24,18 @@ function validateAndCreateUser() {
                 window.location.href = '/lessons/all';
             } else {
                 operationStatus.errors.forEach(function (error) {
-                    switch (error) {
+                    switch (error.name) {
                         case 'WRONG_USER_NAME_FORMAT':
-                            usernameErrorField.innerHTML = WRONG_USER_NAME_FORMAT;
+                            usernameErrorField.innerHTML = error.message;
                             break;
                         case 'INCORRECT_PHONE_NUMBER':
-                            phoneErrorField.innerHTML = INCORRECT_PHONE_NUMBER;
+                            phoneErrorField.innerHTML = error.message;
                             break;
                         case 'USER_ALREADY_REGISTERED':
-                            phoneErrorField.innerHTML = USER_ALREADY_REGISTERED;
+                            phoneErrorField.innerHTML = error.message;
                             break;
                         case 'WRONG_PASSWORD_FORMAT':
-                            passwordErrorField.innerHTML = WRONG_PASSWORD_FORMAT;
+                            passwordErrorField.innerHTML = error.message;
                             break;
                     }
                 });
