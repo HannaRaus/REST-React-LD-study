@@ -1,5 +1,6 @@
-package com.ld.error_handling;
+package com.ld.controllers;
 
+import com.ld.error_handling.ErrorDetails;
 import com.ld.error_handling.exceptions.AccessDeniedException;
 import com.ld.error_handling.exceptions.EntityNotFoundException;
 import com.ld.error_handling.exceptions.UserAlreadyExistsException;
@@ -41,7 +42,7 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<ErrorDetails> getResponseEntity(WebRequest request, String message, HttpStatus status) {
-        return new ResponseEntity<>(new ErrorDetails
-                (LocalDate.now(), message, request.getDescription(false)), status);
+        ErrorDetails body = new ErrorDetails(LocalDate.now(), message, request.getDescription(false));
+        return new ResponseEntity<>(body, status);
     }
 }
