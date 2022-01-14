@@ -10,7 +10,7 @@ services:
     container_name: ld-postgres
     # Forward the exposed port 5432 on the container to port 5432 on the host machine
     ports:
-      - 5432:5432
+      - 5433:5432
     #Volume mounted for database for the storage
     volumes:
       - ld-data:/var/lib/postgresql/data
@@ -29,7 +29,7 @@ services:
     container_name: ld-app
     # Forward the exposed port 8080 on the container to port 8080 on the host machine
     ports:
-      - 8081:8081
+      - 8081:8080
     #Environment variables for Spring Boot Application.
     environment:
       - DB_SERVER=ld-postgres
