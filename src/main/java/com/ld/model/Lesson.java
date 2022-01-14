@@ -47,7 +47,7 @@ public class Lesson {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", updatable = false)
     private LocalDate creationDate;
 
     @Enumerated(EnumType.STRING)
