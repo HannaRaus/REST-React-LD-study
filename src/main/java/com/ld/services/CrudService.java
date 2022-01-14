@@ -1,6 +1,6 @@
 package com.ld.services;
 
-import com.ld.exceptions.EntityNotFoundException;
+import com.ld.error_handling.exceptions.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.ld.services;
 
 import com.ld.model.enums.AccessType;
-import com.ld.exceptions.AccessDeniedException;
+import com.ld.error_handling.exceptions.AccessDeniedException;
 import com.ld.model.Lesson;
 import com.ld.model.User;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.ld.services;
 
-import com.ld.exceptions.EntityNotFoundException;
+import com.ld.error_handling.exceptions.EntityNotFoundException;
 import com.ld.model.Tag;
 import com.ld.repositories.TagRepository;
 import com.ld.validation.ValidateTagRequest;
