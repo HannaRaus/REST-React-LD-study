@@ -1,14 +1,14 @@
 package com.ld.services;
 
-import com.ld.model.enums.UserRole;
 import com.ld.error_handling.exceptions.UserAlreadyExistsException;
+import com.ld.error_handling.exceptions.UserNotFoundException;
 import com.ld.model.User;
+import com.ld.model.enums.UserRole;
 import com.ld.repositories.UserRepository;
 import com.ld.validation.ValidateUserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,13 +53,13 @@ public class UserService extends CrudService<User> {
     public User findByPhone(String phone) {
         log.info("UserService.findByPhone - Searching user by phone '{}", phone);
         return userRepository.findByPhone(phone).orElseThrow(() ->
-                new UsernameNotFoundException(String.format("User with phone [%s] doesn't exist", phone)));
+                new UserNotFoundException(String.format("User with phone [%s] doesn't exist", phone)));
     }
 
     public User findByName(String name) {
         log.info("UserService.findByName - Searching user by name '{}", name);
         return userRepository.findByName(name).orElseThrow(() ->
-                new UsernameNotFoundException(String.format("User with name [%s] doesn't exist", name)));
+                new UserNotFoundException(String.format("User with name [%s] doesn't exist", name)));
     }
 
     public boolean isRegistered(String phone) {
