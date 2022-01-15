@@ -37,7 +37,7 @@ function getLesson() {
                 }
                 if (content.mediaType === 'IMAGE') {
                     contentSection.innerHTML +=
-                        `<img class="rounded mx-auto d-block" src="${content.url}" alt="${content.title}">`
+                        `<img class="rounded mx-auto d-block" width="100%" src="${content.url}" alt="${content.title}">`
                 }
                 if (content.title != null) {
                     contentSection.innerHTML += `<h5 class="text-center">${content.title}</h5>`
