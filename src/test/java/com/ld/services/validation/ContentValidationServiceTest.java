@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ContentValidationServiceTest {
 
     @InjectMocks
-    private ContentValidationService validationService;
+    private ContentValidationService target;
 
     @Test
     public void validate_happyPath() {
         ValidateContentRequest request = new ValidateContentRequest("title", "Video",
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "comment");
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertTrue(response.isSuccess());
         assertTrue(response.getErrors().isEmpty());
@@ -31,7 +31,7 @@ class ContentValidationServiceTest {
     public void validate_whenTitleIncorrect_shouldReturnWrongTitleLengthError() {
         ValidateContentRequest request = new ValidateContentRequest(null, "Video",
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "comment");
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TITLE_LENGTH));
@@ -40,7 +40,7 @@ class ContentValidationServiceTest {
         request = new ValidateContentRequest("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                 "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr", "Video",
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "comment");
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TITLE_LENGTH));
@@ -51,7 +51,7 @@ class ContentValidationServiceTest {
     public void validate_whenMediaTypeIncorrect_shouldReturnWrongMediaTypeError() {
         ValidateContentRequest request = new ValidateContentRequest("title", null,
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "comment");
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_MEDIA_TYPE));
@@ -59,7 +59,7 @@ class ContentValidationServiceTest {
 
         request = new ValidateContentRequest("title", "Videozz",
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "comment");
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_MEDIA_TYPE));
@@ -70,7 +70,7 @@ class ContentValidationServiceTest {
     public void validate_whenUrlIncorrect_shouldReturnWrongUrlLengthError() {
         ValidateContentRequest request = new ValidateContentRequest("title", "Video",
                 null, "comment");
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_URL_LENGTH));
@@ -78,7 +78,7 @@ class ContentValidationServiceTest {
 
         request = new ValidateContentRequest("title", "Video",
                 "", "comment");
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_URL_LENGTH));
@@ -97,7 +97,7 @@ class ContentValidationServiceTest {
                         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
                 "comment");
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_URL_LENGTH));
@@ -108,7 +108,7 @@ class ContentValidationServiceTest {
     public void validate_whenCommentIncorrect_shouldReturnWrongCommentLengthError() {
         ValidateContentRequest request = new ValidateContentRequest("title", "Video",
                 "https://www.youtube.com/watch?v=dQw4w9WgXcQ", null);
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_COMMENT_LENGTH));
@@ -125,7 +125,7 @@ class ContentValidationServiceTest {
                         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_COMMENT_LENGTH));

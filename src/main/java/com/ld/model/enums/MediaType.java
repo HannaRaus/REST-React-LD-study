@@ -16,6 +16,11 @@ public enum MediaType {
 
     private final String displayName;
 
+    public static boolean isMediaType(String mediaType) {
+        return Arrays.stream(MediaType.values())
+                .anyMatch(type -> type.getDisplayName().equals(mediaType.strip()));
+    }
+
     public static MediaType ofName(String displayName) {
         if (Objects.isNull(displayName)) {
             return null;

@@ -20,15 +20,15 @@ import static org.mockito.Mockito.when;
 class TagValidationServiceTest {
 
     @Mock
-    private TagService tagService;
+    private TagService target;
 
     @InjectMocks
     private TagValidationService validationService;
 
     @Test
     public void validate_happyPath() {
-        when(tagService.tagAlreadyExists(any())).thenReturn(false);
-        when(tagService.isTagUnique(any())).thenReturn(true);
+        when(target.tagAlreadyExists(any())).thenReturn(false);
+        when(target.isTagUnique(any())).thenReturn(true);
         ValidateTagRequest request = new ValidateTagRequest("label");
 
         ValidateResponse response = validationService.validate(request);
@@ -38,8 +38,8 @@ class TagValidationServiceTest {
 
     @Test
     public void validate_whenLabelIncorrect_shouldReturnWrongTagLengthError() {
-        when(tagService.tagAlreadyExists(any())).thenReturn(false);
-        when(tagService.isTagUnique(any())).thenReturn(true);
+        when(target.tagAlreadyExists(any())).thenReturn(false);
+        when(target.isTagUnique(any())).thenReturn(true);
         ValidateTagRequest request = new ValidateTagRequest("la");
 
         ValidateResponse response = validationService.validate(request);
@@ -58,8 +58,8 @@ class TagValidationServiceTest {
 
     @Test
     public void validate_whenLabelAlreadyExists_shouldReturnTagDuplicateError() {
-        when(tagService.tagAlreadyExists(any())).thenReturn(true);
-        when(tagService.isTagUnique(any())).thenReturn(false);
+        when(target.tagAlreadyExists(any())).thenReturn(true);
+        when(target.isTagUnique(any())).thenReturn(false);
         ValidateTagRequest request = new ValidateTagRequest("label");
 
         ValidateResponse response = validationService.validate(request);

@@ -28,15 +28,17 @@ public class ContentValidationService {
         String comment = request.getComment();
 
         if (isNull(title) || title.length() > 100) {
-            log.error("ContentValidationService.validate - title :'{}' must be under 100 symbols", title);
+            log.error("ContentValidationService.validate - title :'{}' must be under 100 symbols, but was {}",
+                    title, isNull(title) ? null : title.length());
             errors.add(ValidationError.WRONG_TITLE_LENGTH);
         }
-        if (isNull(mediaType) || isNull(MediaType.ofName(mediaType))) {
+        if (isNull(mediaType) || MediaType.isMediaType(mediaType)) {
             log.error("ContentValidationService.validate - mediaType :'{}' doesn't exist", mediaType);
             errors.add(ValidationError.WRONG_MEDIA_TYPE);
         }
         if (isNull(url) || url.isBlank() || url.length() > 500) {
-            log.error("ContentValidationService.validate - url :'{}' can't be empty and must be under 500 symbols", url);
+            log.error("ContentValidationService.validate - url :'{}' " +
+                    "can't be empty and must be under 500 symbols, but was {}", url, isNull(url) ? null : url.length());
             errors.add(ValidationError.WRONG_URL_LENGTH);
         }
         if (!isCorrectUrl(url)) {
@@ -44,7 +46,8 @@ public class ContentValidationService {
             errors.add(ValidationError.WRONG_URL_FORMAT);
         }
         if (isNull(comment) || comment.length() > 500) {
-            log.error("ContentValidationService.validate - comment :'{}' must be under 500 symbols", comment);
+            log.error("ContentValidationService.validate - comment :'{}' must be under 500 symbols, but was {}",
+                    comment, isNull(comment) ? null : comment.length());
             errors.add(ValidationError.WRONG_COMMENT_LENGTH);
         }
 

@@ -1,9 +1,9 @@
 package com.ld.services;
 
-import com.ld.model.enums.AccessType;
 import com.ld.error_handling.exceptions.EntityNotFoundException;
 import com.ld.model.Lesson;
 import com.ld.model.Tag;
+import com.ld.model.enums.AccessType;
 import com.ld.repositories.LessonRepository;
 import com.ld.validation.ValidateLessonRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,19 +33,7 @@ public class LessonService extends CrudService<Lesson> {
 
     public void save(ValidateLessonRequest request) {
         log.info("LessonService.save - Saving lesson from request '{}", request);
-        Lesson lesson = Lesson.builder()
-                .title(request.getTitle())
-                .description(request.getDescription())
-                .creationDate(LocalDate.now())
-                .accessType(AccessType.ofName(request.getAccessType()))
-                .tags(request.getTags().stream()
-                        .map(tagService::findByLabel)
-                        .collect(Collectors.toSet()))
-                .contents(contentService.parseContents(request.getContents()))
-                .author(request.isUserAsAuthor() ?
-                        ssoService.getCurrentUser()
-                        : null)
-                .build();
+        Lesson lesson = toLesson(request);
         lesson.getContents().forEach(content -> content.setLesson(lesson));
         super.save(lesson);
     }
@@ -69,5 +57,21 @@ public class LessonService extends CrudService<Lesson> {
     public List<Lesson> findByAuthor(String author) {
         log.info("LessonService.findByAuthor - Searching lesson by author '{}", author);
         return lessonRepository.findByAuthor_Name(author);
+    }
+
+    private Lesson toLesson(ValidateLessonRequest request) {
+        return Lesson.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .creationDate(LocalDate.now())
+                .accessType(AccessType.ofName(request.getAccessType()))
+                .tags(request.getTags().stream()
+                        .map(tagService::findByLabel)
+                        .collect(Collectors.toSet()))
+                .contents(contentService.toContent(request.getContents()))
+                .author(request.isUserAsAuthor() ?
+                        ssoService.getCurrentUser()
+                        : null)
+                .build();
     }
 }

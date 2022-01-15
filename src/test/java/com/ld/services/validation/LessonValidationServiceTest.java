@@ -19,13 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class LessonValidationServiceTest {
 
     @InjectMocks
-    private LessonValidationService validationService;
+    private LessonValidationService target;
 
     @Test
     public void validate_happyPath() {
         ValidateLessonRequest request = new ValidateLessonRequest(
                 "title", "", AccessType.PUBLIC.name(), null, List.of(""), false);
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertTrue(response.isSuccess());
         assertTrue(response.getErrors().isEmpty());
@@ -35,7 +35,7 @@ class LessonValidationServiceTest {
     public void validate_whenTitleIncorrect_shouldReturnWrongTitleLengthError() {
         ValidateLessonRequest request = new ValidateLessonRequest(
                 "tit", "", AccessType.PUBLIC.name(), null, List.of(""), false);
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TITLE_LENGTH));
@@ -45,7 +45,7 @@ class LessonValidationServiceTest {
                 "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
                 "", AccessType.PUBLIC.name(), null, List.of(""), false);
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TITLE_LENGTH));
@@ -53,7 +53,7 @@ class LessonValidationServiceTest {
 
         request = new ValidateLessonRequest(
                 null, "", AccessType.PUBLIC.name(), null, List.of(""), false);
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TITLE_LENGTH));
@@ -74,7 +74,7 @@ class LessonValidationServiceTest {
                 "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                 "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                 "", AccessType.PUBLIC.name(), null, List.of(""), false);
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_DESCRIPTION_LENGTH));
@@ -82,7 +82,7 @@ class LessonValidationServiceTest {
 
         request = new ValidateLessonRequest(
                 "title", null, AccessType.PUBLIC.name(), null, List.of(""), false);
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_DESCRIPTION_LENGTH));
@@ -93,7 +93,7 @@ class LessonValidationServiceTest {
     public void validate_whenContentIsEmpty_shouldReturnEmptyContentError() {
         ValidateLessonRequest request = new ValidateLessonRequest(
                 "title", "", AccessType.PUBLIC.name(), null, null, false);
-        ValidateResponse response = validationService.validate(request);
+        ValidateResponse response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.EMPTY_CONTENT_ERROR));
@@ -101,7 +101,7 @@ class LessonValidationServiceTest {
 
         request = new ValidateLessonRequest(
                 "title", "", AccessType.PUBLIC.name(), null, Collections.emptyList(), false);
-        response = validationService.validate(request);
+        response = target.validate(request);
 
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.EMPTY_CONTENT_ERROR));

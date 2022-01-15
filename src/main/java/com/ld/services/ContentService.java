@@ -2,8 +2,8 @@ package com.ld.services;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ld.model.enums.MediaType;
 import com.ld.model.Content;
+import com.ld.model.enums.MediaType;
 import com.ld.repositories.ContentRepository;
 import com.ld.services.editors.GsonLocalDateTime;
 import com.ld.validation.ValidateContentRequest;
@@ -30,22 +30,17 @@ public class ContentService extends CrudService<Content> {
         return repository;
     }
 
-    public List<Content> parseContents(List<String> contents) {
+    public List<Content> toContent(List<String> contents) {
         return contents.stream()
                 .map(content -> gson.fromJson(content, Content.class))
                 .collect(Collectors.toList());
     }
 
     public void save(ValidateContentRequest request) {
-        super.save(Content.builder()
-                .title(request.getTitle())
-                .mediaType(MediaType.valueOf(request.getMediaType()))
-                .url(request.getUrl())
-                .comment(request.getComment())
-                .build());
+        super.save(toContent(request));
     }
 
-    public Content toContent(ValidateContentRequest request) {
+    private Content toContent(ValidateContentRequest request) {
         return Content.builder()
                 .title(request.getTitle())
                 .mediaType(MediaType.valueOf(request.getMediaType()))

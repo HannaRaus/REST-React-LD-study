@@ -19,14 +19,14 @@ import static org.mockito.Mockito.when;
 class UserValidationServiceTest {
 
     @Mock
-    private UserService userService;
+    private UserService target;
 
     @InjectMocks
     private UserValidationService validationService;
 
     @Test
     public void validate_happyPath() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+380631111111", "password", false);
 
@@ -37,7 +37,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenUserIsAlreadyExists_shouldReturnUserAlreadyExistsError() {
-        when(userService.isRegistered(any())).thenReturn(true);
+        when(target.isRegistered(any())).thenReturn(true);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+380631111111", "password", false);
 
@@ -50,7 +50,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenUsernameIncorrect_shouldReturnWrongUsernameFormat() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "us", "+380631111111", "password", false);
 
@@ -73,7 +73,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPasswordIncorrect_shouldReturnWrongPasswordFormat() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+380631111111", "pass", false);
 
@@ -96,7 +96,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneWithoutPlus_happyPath() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "30631111111", "password", false);
 
@@ -107,7 +107,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneWithoutCountryCode_happyPath() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "0631111111", "password", false);
 
@@ -118,7 +118,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneContainsSpaces_happyPath() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+38 063 111 11 11", "password", false);
 
@@ -129,7 +129,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneWithCorrectOperators_happyPath() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "0631111111", "password", false);
 
@@ -182,7 +182,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneIsRussian_shouldReturnIncorrectPhoneNumber() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+791 1111111", "password", false);
 
@@ -195,7 +195,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneIsNotMobile_shouldReturnIncorrectPhoneNumber() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+380441111111", "password", false);
 
@@ -208,7 +208,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneIncorrectOperator_shouldReturnIncorrectPhoneNumber() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+380991111111", "password", false);
 
@@ -221,7 +221,7 @@ class UserValidationServiceTest {
 
     @Test
     public void validate_whenPhoneContainsSymbols_shouldReturnIncorrectPhoneNumber() {
-        when(userService.isRegistered(any())).thenReturn(false);
+        when(target.isRegistered(any())).thenReturn(false);
         ValidateUserRequest request = new ValidateUserRequest(
                 "user", "+3fcv$8063z11//11111", "password", false);
 
