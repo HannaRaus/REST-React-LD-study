@@ -43,7 +43,7 @@ public class ContentService extends CrudService<Content> {
     private Content toContent(ValidateContentRequest request) {
         return Content.builder()
                 .title(request.getTitle())
-                .mediaType(MediaType.valueOf(request.getMediaType()))
+                .mediaType(MediaType.ofName(request.getMediaType()))
                 .url(request.getUrl())
                 .comment(request.getComment())
                 .build();
