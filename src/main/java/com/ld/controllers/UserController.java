@@ -3,7 +3,7 @@ package com.ld.controllers;
 import com.ld.services.UserService;
 import com.ld.services.validation.UserValidationService;
 import com.ld.validation.ValidateResponse;
-import com.ld.validation.ValidateUserRequest;
+import com.ld.validation.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -40,7 +40,7 @@ public class UserController {
 
     @PostMapping(path = "/registration")
     @ResponseBody
-    public ValidateResponse registration(@RequestBody ValidateUserRequest request) {
+    public ValidateResponse registration(@RequestBody UserRequest request) {
         ValidateResponse response = validationService.validate(request);
         if (response.isSuccess()) {
             service.register(request);

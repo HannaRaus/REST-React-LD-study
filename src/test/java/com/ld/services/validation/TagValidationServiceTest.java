@@ -2,7 +2,7 @@ package com.ld.services.validation;
 
 import com.ld.services.TagService;
 import com.ld.validation.ValidateResponse;
-import com.ld.validation.ValidateTagRequest;
+import com.ld.validation.TagRequest;
 import com.ld.validation.ValidationError;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ class TagValidationServiceTest {
     public void validate_happyPath() {
         when(target.tagAlreadyExists(any())).thenReturn(false);
         when(target.isTagUnique(any())).thenReturn(true);
-        ValidateTagRequest request = new ValidateTagRequest("label");
+        TagRequest request = new TagRequest("label");
 
         ValidateResponse response = validationService.validate(request);
         assertTrue(response.isSuccess());
@@ -40,14 +40,14 @@ class TagValidationServiceTest {
     public void validate_whenLabelIncorrect_shouldReturnWrongTagLengthError() {
         when(target.tagAlreadyExists(any())).thenReturn(false);
         when(target.isTagUnique(any())).thenReturn(true);
-        ValidateTagRequest request = new ValidateTagRequest("la");
+        TagRequest request = new TagRequest("la");
 
         ValidateResponse response = validationService.validate(request);
         assertFalse(response.isSuccess());
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TAG_LENGTH));
         assertTrue(response.getErrors().isEmpty());
 
-        request = new ValidateTagRequest("lauserrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+        request = new TagRequest("lauserrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
 
         response = validationService.validate(request);
         assertFalse(response.isSuccess());
@@ -60,7 +60,7 @@ class TagValidationServiceTest {
     public void validate_whenLabelAlreadyExists_shouldReturnTagDuplicateError() {
         when(target.tagAlreadyExists(any())).thenReturn(true);
         when(target.isTagUnique(any())).thenReturn(false);
-        ValidateTagRequest request = new ValidateTagRequest("label");
+        TagRequest request = new TagRequest("label");
 
         ValidateResponse response = validationService.validate(request);
         assertFalse(response.isSuccess());

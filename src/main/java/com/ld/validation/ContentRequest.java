@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ValidateContentRequest {
+public class ContentRequest {
 
     @NotNull
     private String title;

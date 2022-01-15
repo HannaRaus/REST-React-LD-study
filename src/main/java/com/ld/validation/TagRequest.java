@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ValidateTagRequest {
+public class TagRequest {
 
     @NotNull
     private String label;

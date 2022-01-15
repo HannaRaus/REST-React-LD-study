@@ -2,7 +2,7 @@ package com.ld.services.validation;
 
 import com.ld.services.UserService;
 import com.ld.validation.ValidateResponse;
-import com.ld.validation.ValidateUserRequest;
+import com.ld.validation.UserRequest;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class UserValidationService {
 
     private final UserService service;
 
-    public ValidateResponse validate(@NonNull ValidateUserRequest request) {
+    public ValidateResponse validate(@NonNull UserRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String name = request.getName();

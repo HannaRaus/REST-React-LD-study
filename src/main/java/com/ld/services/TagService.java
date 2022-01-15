@@ -3,7 +3,7 @@ package com.ld.services;
 import com.ld.error_handling.exceptions.EntityNotFoundException;
 import com.ld.model.Tag;
 import com.ld.repositories.TagRepository;
-import com.ld.validation.ValidateTagRequest;
+import com.ld.validation.TagRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,7 +26,7 @@ public class TagService extends CrudService<Tag> {
         return repository;
     }
 
-    public void save(ValidateTagRequest request) {
+    public void save(TagRequest request) {
         log.info("TagService.save - Saving tag from request '{}", request);
         super.save(Tag.builder()
                 .label(request.getLabel())

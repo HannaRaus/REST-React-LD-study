@@ -5,7 +5,7 @@ import com.ld.model.Lesson;
 import com.ld.model.Tag;
 import com.ld.model.enums.AccessType;
 import com.ld.repositories.LessonRepository;
-import com.ld.validation.ValidateLessonRequest;
+import com.ld.validation.LessonRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,7 +31,7 @@ public class LessonService extends CrudService<Lesson> {
         return lessonRepository;
     }
 
-    public void save(ValidateLessonRequest request) {
+    public void save(LessonRequest request) {
         log.info("LessonService.save - Saving lesson from request '{}", request);
         Lesson lesson = toLesson(request);
         lesson.getContents().forEach(content -> content.setLesson(lesson));
@@ -59,7 +59,7 @@ public class LessonService extends CrudService<Lesson> {
         return lessonRepository.findByAuthor_Name(author);
     }
 
-    private Lesson toLesson(ValidateLessonRequest request) {
+    private Lesson toLesson(LessonRequest request) {
         return Lesson.builder()
                 .title(request.getTitle())
                 .description(request.getDescription())

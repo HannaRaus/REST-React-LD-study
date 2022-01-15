@@ -1,7 +1,7 @@
 package com.ld.services.validation;
 
 import com.ld.model.enums.AccessType;
-import com.ld.validation.ValidateLessonRequest;
+import com.ld.validation.LessonRequest;
 import com.ld.validation.ValidateResponse;
 import com.ld.validation.ValidationError;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class LessonValidationServiceTest {
 
     @Test
     public void validate_happyPath() {
-        ValidateLessonRequest request = new ValidateLessonRequest(
+        LessonRequest request = new LessonRequest(
                 "title", "", AccessType.PUBLIC.name(), null, List.of(""), false);
         ValidateResponse response = target.validate(request);
 
@@ -33,7 +33,7 @@ class LessonValidationServiceTest {
 
     @Test
     public void validate_whenTitleIncorrect_shouldReturnWrongTitleLengthError() {
-        ValidateLessonRequest request = new ValidateLessonRequest(
+        LessonRequest request = new LessonRequest(
                 "tit", "", AccessType.PUBLIC.name(), null, List.of(""), false);
         ValidateResponse response = target.validate(request);
 
@@ -41,7 +41,7 @@ class LessonValidationServiceTest {
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TITLE_LENGTH));
         assertTrue(response.getErrors().isEmpty());
 
-        request = new ValidateLessonRequest(
+        request = new LessonRequest(
                 "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                         "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
                 "", AccessType.PUBLIC.name(), null, List.of(""), false);
@@ -51,7 +51,7 @@ class LessonValidationServiceTest {
         assertTrue(response.getErrors().remove(ValidationError.WRONG_TITLE_LENGTH));
         assertTrue(response.getErrors().isEmpty());
 
-        request = new ValidateLessonRequest(
+        request = new LessonRequest(
                 null, "", AccessType.PUBLIC.name(), null, List.of(""), false);
         response = target.validate(request);
 
@@ -62,7 +62,7 @@ class LessonValidationServiceTest {
 
     @Test
     public void validate_whenDescriptionIncorrect_shouldReturnWrongDescriptionLengthError() {
-        ValidateLessonRequest request = new ValidateLessonRequest(
+        LessonRequest request = new LessonRequest(
                 "title", "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                 "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
                 "userrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" +
@@ -80,7 +80,7 @@ class LessonValidationServiceTest {
         assertTrue(response.getErrors().remove(ValidationError.WRONG_DESCRIPTION_LENGTH));
         assertTrue(response.getErrors().isEmpty());
 
-        request = new ValidateLessonRequest(
+        request = new LessonRequest(
                 "title", null, AccessType.PUBLIC.name(), null, List.of(""), false);
         response = target.validate(request);
 
@@ -91,7 +91,7 @@ class LessonValidationServiceTest {
 
     @Test
     public void validate_whenContentIsEmpty_shouldReturnEmptyContentError() {
-        ValidateLessonRequest request = new ValidateLessonRequest(
+        LessonRequest request = new LessonRequest(
                 "title", "", AccessType.PUBLIC.name(), null, null, false);
         ValidateResponse response = target.validate(request);
 
@@ -99,7 +99,7 @@ class LessonValidationServiceTest {
         assertTrue(response.getErrors().remove(ValidationError.EMPTY_CONTENT_ERROR));
         assertTrue(response.getErrors().isEmpty());
 
-        request = new ValidateLessonRequest(
+        request = new LessonRequest(
                 "title", "", AccessType.PUBLIC.name(), null, Collections.emptyList(), false);
         response = target.validate(request);
 

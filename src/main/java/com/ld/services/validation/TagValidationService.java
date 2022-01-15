@@ -2,7 +2,7 @@ package com.ld.services.validation;
 
 import com.ld.services.TagService;
 import com.ld.validation.ValidateResponse;
-import com.ld.validation.ValidateTagRequest;
+import com.ld.validation.TagRequest;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class TagValidationService {
 
     private final TagService service;
 
-    public ValidateResponse validate(@NonNull ValidateTagRequest request) {
+    public ValidateResponse validate(@NonNull TagRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String label = request.getLabel();

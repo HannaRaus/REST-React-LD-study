@@ -3,7 +3,7 @@ package com.ld.services;
 import com.ld.model.Content;
 import com.ld.model.enums.MediaType;
 import com.ld.repositories.ContentRepository;
-import com.ld.validation.ValidateContentRequest;
+import com.ld.validation.ContentRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -47,7 +47,7 @@ class ContentServiceTest {
 
     @Test
     public void toContent_whenInputIsValidateRequest_happyPath() {
-        ValidateContentRequest request = new ValidateContentRequest(
+        ContentRequest request = new ContentRequest(
                 "title", "VIDEO", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "comment");
 
         target.save(request);

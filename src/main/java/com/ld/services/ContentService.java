@@ -6,7 +6,7 @@ import com.ld.model.Content;
 import com.ld.model.enums.MediaType;
 import com.ld.repositories.ContentRepository;
 import com.ld.services.editors.GsonLocalDateTime;
-import com.ld.validation.ValidateContentRequest;
+import com.ld.validation.ContentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -36,11 +36,11 @@ public class ContentService extends CrudService<Content> {
                 .collect(Collectors.toList());
     }
 
-    public void save(ValidateContentRequest request) {
+    public void save(ContentRequest request) {
         super.save(toContent(request));
     }
 
-    private Content toContent(ValidateContentRequest request) {
+    private Content toContent(ContentRequest request) {
         return Content.builder()
                 .title(request.getTitle())
                 .mediaType(MediaType.ofName(request.getMediaType()))

@@ -5,7 +5,7 @@ import com.ld.error_handling.exceptions.UserNotFoundException;
 import com.ld.model.User;
 import com.ld.model.enums.UserRole;
 import com.ld.repositories.UserRepository;
-import com.ld.validation.ValidateUserRequest;
+import com.ld.validation.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,7 +27,7 @@ public class UserService extends CrudService<User> {
         return userRepository;
     }
 
-    public void register(ValidateUserRequest request) {
+    public void register(UserRequest request) {
         save(User.builder()
                 .name(request.getName())
                 .phone(request.getPhone())

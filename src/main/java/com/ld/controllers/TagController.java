@@ -3,7 +3,7 @@ package com.ld.controllers;
 import com.ld.services.TagService;
 import com.ld.services.validation.TagValidationService;
 import com.ld.validation.ValidateResponse;
-import com.ld.validation.ValidateTagRequest;
+import com.ld.validation.TagRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class TagController {
 
     @PostMapping("/create")
     @ResponseBody
-    public ValidateResponse create(@RequestBody ValidateTagRequest request) {
+    public ValidateResponse create(@RequestBody TagRequest request) {
         ValidateResponse response = validationService.validate(request);
         if (response.isSuccess()) {
             service.save(request);

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
-public class ValidateUserRequest {
+public class UserRequest {
 
     @NotNull
     private String name;

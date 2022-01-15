@@ -5,7 +5,7 @@ import com.ld.services.LessonService;
 import com.ld.services.SSOService;
 import com.ld.services.TagService;
 import com.ld.services.validation.LessonValidationService;
-import com.ld.validation.ValidateLessonRequest;
+import com.ld.validation.LessonRequest;
 import com.ld.validation.ValidateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -39,7 +39,7 @@ public class LessonsController {
 
     @PostMapping(path = "/create")
     @ResponseBody
-    public ValidateResponse create(@RequestBody ValidateLessonRequest request) {
+    public ValidateResponse create(@RequestBody LessonRequest request) {
         ValidateResponse response = validationService.validate(request);
         if (response.isSuccess()) {
             lessonService.save(request);
@@ -67,7 +67,7 @@ public class LessonsController {
 
     @PostMapping(path = "/edit")
     @ResponseBody
-    public ValidateResponse update(@RequestBody ValidateLessonRequest request) {
+    public ValidateResponse update(@RequestBody LessonRequest request) {
         ValidateResponse response = validationService.validate(request);
         if (response.isSuccess()) {
             lessonService.save(request);

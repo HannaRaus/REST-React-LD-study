@@ -1,6 +1,6 @@
 package com.ld.services.validation;
 
-import com.ld.validation.ValidateLessonRequest;
+import com.ld.validation.LessonRequest;
 import com.ld.validation.ValidateResponse;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
@@ -18,7 +18,7 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 public class LessonValidationService {
 
-    public ValidateResponse validate(@NonNull ValidateLessonRequest request) {
+    public ValidateResponse validate(@NonNull LessonRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String title = request.getTitle();

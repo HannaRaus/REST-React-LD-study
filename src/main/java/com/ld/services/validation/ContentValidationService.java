@@ -1,7 +1,7 @@
 package com.ld.services.validation;
 
 import com.ld.model.enums.MediaType;
-import com.ld.validation.ValidateContentRequest;
+import com.ld.validation.ContentRequest;
 import com.ld.validation.ValidateResponse;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
@@ -19,7 +19,7 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 public class ContentValidationService {
 
-    public ValidateResponse validate(@NonNull ValidateContentRequest request) {
+    public ValidateResponse validate(@NonNull ContentRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String title = request.getTitle();

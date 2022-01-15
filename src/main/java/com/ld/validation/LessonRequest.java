@@ -8,7 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Data
-public class ValidateLessonRequest {
+public class LessonRequest {
 
     @NotNull
     private String title;

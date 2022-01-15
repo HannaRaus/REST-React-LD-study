@@ -3,7 +3,7 @@ package com.ld.services;
 import com.ld.error_handling.exceptions.EntityNotFoundException;
 import com.ld.model.Tag;
 import com.ld.repositories.TagRepository;
-import com.ld.validation.ValidateTagRequest;
+import com.ld.validation.TagRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -36,7 +36,7 @@ class TagServiceTest {
 
     @Test
     public void save_happyPath() {
-        ValidateTagRequest request = new ValidateTagRequest("label");
+        TagRequest request = new TagRequest("label");
         target.save(request);
 
         Tag tag = Tag.builder()

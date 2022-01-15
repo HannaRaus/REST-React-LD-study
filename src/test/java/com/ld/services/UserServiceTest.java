@@ -5,7 +5,7 @@ import com.ld.error_handling.exceptions.UserNotFoundException;
 import com.ld.model.User;
 import com.ld.model.enums.UserRole;
 import com.ld.repositories.UserRepository;
-import com.ld.validation.ValidateUserRequest;
+import com.ld.validation.UserRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,7 +40,7 @@ class UserServiceTest {
     @Test
     public void register_happyPath() {
         when(repository.findByPhone(any())).thenReturn(Optional.empty());
-        ValidateUserRequest request = new ValidateUserRequest(
+        UserRequest request = new UserRequest(
                 "name", "+380631111111", "password", true);
         target.register(request);
         verify(repository, times(1)).findByPhone("+380631111111");
@@ -49,7 +49,7 @@ class UserServiceTest {
     @Test
     public void register_whenUserWithPhoneAlreadyExists_shouldThrowUserAlreadyExistsException() {
         when(repository.findByPhone(any())).thenReturn(Optional.of(user()));
-        ValidateUserRequest request = new ValidateUserRequest(
+        UserRequest request = new UserRequest(
                 "name", "+380631111111", "password", true);
 
         UserAlreadyExistsException result = assertThrows(UserAlreadyExistsException.class, () ->

@@ -2,7 +2,7 @@ package com.ld.controllers;
 
 import com.ld.services.ContentService;
 import com.ld.services.validation.ContentValidationService;
-import com.ld.validation.ValidateContentRequest;
+import com.ld.validation.ContentRequest;
 import com.ld.validation.ValidateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class ContentController {
 
     @PostMapping(path = "/create")
     @ResponseBody
-    public ValidateResponse create(@RequestBody ValidateContentRequest request) {
+    public ValidateResponse create(@RequestBody ContentRequest request) {
         ValidateResponse response = validationService.validate(request);
         return response;
     }
