@@ -1,12 +1,14 @@
 package com.ld.model.enums;
 
+import com.ld.error_handling.exceptions.InvalidMediaTypeException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.isNull;
 
 @RequiredArgsConstructor
 @Getter
@@ -17,18 +19,18 @@ public enum MediaType {
     private final String displayName;
 
     public static boolean isMediaType(String mediaType) {
-        return Arrays.stream(MediaType.values())
-                .anyMatch(type -> type.getDisplayName().equals(mediaType.strip()));
+        return !isNull(mediaType) && Arrays.stream(MediaType.values())
+                .anyMatch(type -> type.getDisplayName().equalsIgnoreCase(mediaType.strip()));
     }
 
     public static MediaType ofName(String displayName) {
-        if (Objects.isNull(displayName)) {
-            return null;
+        if (isNull(displayName)) {
+            throw new InvalidMediaTypeException("There is no such media type");
         }
         return Arrays.stream(MediaType.values())
-                .filter(type -> type.getDisplayName().equals(displayName))
+                .filter(type -> type.getDisplayName().equalsIgnoreCase(displayName.strip()))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new InvalidMediaTypeException("There is no such media type"));
     }
 
     public static List<String> dropdownNames() {
