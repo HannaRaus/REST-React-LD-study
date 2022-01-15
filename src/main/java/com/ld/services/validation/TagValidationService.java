@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class TagValidationService {
 
         String label = request.getLabel();
 
-        if (label.length() < 3 || label.length() > 50) {
+        if (isNull(label) || label.length() < 3 || label.length() > 50) {
             log.error("TagValidationService.validate - Tag with label:'{}' is too long", label);
             errors.add(ValidationError.WRONG_TAG_LENGTH);
         }

@@ -1,7 +1,5 @@
 package com.ld.validation;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.ld.services.editors.ValidationErrorSerializer;
 import lombok.Getter;
@@ -17,7 +15,8 @@ public enum ValidationError {
     INCORRECT_PHONE_NUMBER("Incorrect phone number. Must be in +380671111111 format"),
     WRONG_TITLE_LENGTH("Title must be in range of 5-100 symbols"),
     WRONG_DESCRIPTION_LENGTH("Description must be under 500 symbols"),
-    WRONG_ACCESS_TYPE(""),
+    WRONG_ACCESS_TYPE("Such access type doesn't exist"),
+    WRONG_MEDIA_TYPE("Such media type doesn't exist"),
     EMPTY_CONTENT_ERROR("Content can't be empty. Add some information to lesson"),
     TAG_DUPLICATE_ERROR("This tag already exists"),
     TAG_IS_NOT_UNIQUE("There are few tags with same label, try to be more fancy)"),
@@ -26,7 +25,6 @@ public enum ValidationError {
     WRONG_URL_FORMAT("Url has incorrect path"),
     WRONG_COMMENT_LENGTH("Comment must be under 500 symbols");
 
-//    @JsonValue
     private final String message;
 
 }

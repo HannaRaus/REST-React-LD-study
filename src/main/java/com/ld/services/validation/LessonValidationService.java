@@ -25,11 +25,11 @@ public class LessonValidationService {
         String description = request.getDescription();
         List<String> contents = request.getContents();
 
-        if (title.length() < 5 || title.length() > 100) {
+        if (isNull(title) || title.length() < 5 || title.length() > 100) {
             log.error("LessonValidationService.validate - title:'{}' must be in range of 5-100 symbols", title);
             errors.add(ValidationError.WRONG_TITLE_LENGTH);
         }
-        if (description.length() > 500) {
+        if (isNull(description) || description.length() > 500) {
             log.error("LessonValidationService.validate - description:'{}' must be under 500 symbols", description);
             errors.add(ValidationError.WRONG_DESCRIPTION_LENGTH);
         }

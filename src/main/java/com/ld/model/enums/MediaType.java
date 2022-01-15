@@ -16,11 +16,11 @@ public enum MediaType {
 
     private final String displayName;
 
-    public static AccessType ofName(String displayName) {
+    public static MediaType ofName(String displayName) {
         if (Objects.isNull(displayName)) {
             return null;
         }
-        return Arrays.stream(AccessType.values())
+        return Arrays.stream(MediaType.values())
                 .filter(type -> type.getDisplayName().equals(displayName))
                 .findFirst()
                 .orElse(null);
