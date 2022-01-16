@@ -5,7 +5,7 @@ function getLesson() {
     let contentSection = document.getElementById('content')
     let tagsSection = document.getElementById('tags')
 
-    let url = "/lessons/lesson?id" + id;
+    let url = "/lessons?id" + id;
     request.open("GET", url, true);
     request.setRequestHeader("Content-Type", "application/json");
     request.responseType = 'json';
