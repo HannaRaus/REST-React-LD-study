@@ -35,11 +35,12 @@ public class LessonSearchController {
     }
 
     @GetMapping(path = "/tags")
-    public String searchByTags(@RequestParam(name = "tags") Set<String> tags, Model model) {
+    public String searchByTags(@RequestParam(name = "tag") Set<String> tags, Model model) {
         Set<Tag> searchTags = tags.stream()
                 .map(tagService::findByLabel)
                 .collect(Collectors.toSet());
         List<Lesson> lessonsByTags = ssoService.checkUserPermission(lessonService.findByTagsIn(searchTags));
+        model.addAttribute("tags", tagService.readAll());
         model.addAttribute("lessons", lessonsByTags);
         return "lessons";
     }

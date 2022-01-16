@@ -69,12 +69,15 @@
 </div>
 <!--List tags   -->
 <div th:fragment="tags" xmlns:th="http://www.w3.org/1999/xhtml">
-    <th:block th:each="tag : ${tags}" class="customTags" data-toggle="buttons">
-        <label for="tag" class="btn btn-outline-secondary">
-            <input type="checkbox" id="tag" name="tag" onclick="filterByTag()">
-            <span th:text="${tag.label}"></span>
-        </label>
-    </th:block>
+    <form action="/lessons/search/tags">
+        <th:block th:each="tag : ${tags}" class="customTags" data-toggle="buttons">
+            <button class="btn btn-outline-secondary" id="tag" name="tag" th:value="${tag.label}" type="submit">
+                <span th:text="${tag.label}"></span>
+            </button>
+
+        </th:block>
+    </form>
+
 </div>
 <div th:fragment="modalDelete" xmlns:th="http://www.w3.org/1999/xhtml" class="modal fade" id="deleteModal" tabindex="-1"
      role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
