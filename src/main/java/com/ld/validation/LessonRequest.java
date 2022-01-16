@@ -2,12 +2,16 @@ package com.ld.validation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@AllArgsConstructor
 @Data
+@Accessors(chain = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class LessonRequest {
 
     @NotNull
