@@ -134,14 +134,13 @@ class UserServiceTest {
     }
 
     private User user() {
-        return User.builder()
-                .name("name")
-                .phone("+380631111111")
-                .password("password")
-                .isActive(true)
-                .sendNotification(true)
-                .userRole(UserRole.ROLE_USER)
-                .favoriteLessons(null)
-                .build();
+        return new User()
+                .setName("name")
+                .setPhone("+380631111111")
+                .setPassword("password")
+                .setActive(true)
+                .setSendNotification(true)
+                .setUserRole(UserRole.ROLE_USER)
+                .setFavoriteLessons(null);
     }
 }

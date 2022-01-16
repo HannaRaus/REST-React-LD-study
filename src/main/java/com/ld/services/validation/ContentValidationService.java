@@ -32,7 +32,7 @@ public class ContentValidationService {
                     title, isNull(title) ? null : title.length());
             errors.add(ValidationError.WRONG_TITLE_LENGTH);
         }
-        if (isNull(mediaType) || MediaType.isMediaType(mediaType)) {
+        if (isNull(mediaType) || !MediaType.isMediaType(mediaType)) {
             log.error("ContentValidationService.validate - mediaType :'{}' doesn't exist", mediaType);
             errors.add(ValidationError.WRONG_MEDIA_TYPE);
         }

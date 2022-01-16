@@ -2,10 +2,9 @@ package com.ld.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ld.model.enums.AccessType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
@@ -30,9 +29,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "lessons")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Accessors(chain = true)
+@RequiredArgsConstructor
 public class Lesson {
 
     @Id

@@ -28,9 +28,7 @@ public class TagService extends CrudService<Tag> {
 
     public void save(TagRequest request) {
         log.info("TagService.save - Saving tag from request '{}", request);
-        super.save(Tag.builder()
-                .label(request.getLabel())
-                .build());
+        super.save(new Tag().setLabel(request.getLabel()));
     }
 
     public Tag findByLabel(String label) {

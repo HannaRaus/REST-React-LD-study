@@ -38,7 +38,7 @@ public class UserValidationService {
             log.error("UserValidationService.validate - name:'{}' must be in range of 3-50 symbols", name);
             errors.add(ValidationError.WRONG_USER_NAME_FORMAT);
         }
-        if (isNull(password) || password.length() < 5 || password.length() > 50) {
+        if (password.length() < 5 || password.length() > 50) {
             log.error("UserValidationService.validate - password:'{}' must be in range of 5-50 symbols", password);
             errors.add(ValidationError.WRONG_PASSWORD_FORMAT);
         }

@@ -60,18 +60,17 @@ public class LessonService extends CrudService<Lesson> {
     }
 
     private Lesson toLesson(LessonRequest request) {
-        return Lesson.builder()
-                .title(request.getTitle())
-                .description(request.getDescription())
-                .creationDate(LocalDate.now())
-                .accessType(AccessType.ofName(request.getAccessType()))
-                .tags(request.getTags().stream()
+        return new Lesson()
+                .setTitle(request.getTitle())
+                .setDescription(request.getDescription())
+                .setCreationDate(LocalDate.now())
+                .setAccessType(AccessType.ofName(request.getAccessType()))
+                .setTags(request.getTags().stream()
                         .map(tagService::findByLabel)
                         .collect(Collectors.toSet()))
-                .contents(contentService.toContent(request.getContents()))
-                .author(request.isUserAsAuthor() ?
+                .setContents(contentService.toContent(request.getContents()))
+                .setAuthor(request.isUserAsAuthor() ?
                         ssoService.getCurrentUser()
-                        : null)
-                .build();
+                        : null);
     }
 }

@@ -39,9 +39,7 @@ class TagServiceTest {
         TagRequest request = new TagRequest("label");
         target.save(request);
 
-        Tag tag = Tag.builder()
-                .label("label")
-                .build();
+        Tag tag = new Tag().setLabel("label");
         verify(repository, times(1)).save(tag);
     }
 
@@ -120,10 +118,9 @@ class TagServiceTest {
     }
 
     private Tag tag() {
-        return Tag.builder()
-                .id(UUID.randomUUID())
-                .label("label")
-                .lessons(null)
-                .build();
+        return new Tag()
+                .setId(UUID.randomUUID())
+                .setLabel("label")
+                .setLessons(null);
     }
 }

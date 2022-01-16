@@ -41,11 +41,10 @@ public class ContentService extends CrudService<Content> {
     }
 
     private Content toContent(ContentRequest request) {
-        return Content.builder()
-                .title(request.getTitle())
-                .mediaType(MediaType.ofName(request.getMediaType()))
-                .url(request.getUrl())
-                .comment(request.getComment())
-                .build();
+        return new Content()
+                .setTitle(request.getTitle())
+                .setMediaType(MediaType.ofName(request.getMediaType()))
+                .setUrl(request.getUrl())
+                .setComment(request.getComment());
     }
 }

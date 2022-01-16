@@ -52,12 +52,11 @@ class ContentServiceTest {
 
         target.save(request);
 
-        Content content = Content.builder()
-                .title("title")
-                .mediaType(MediaType.VIDEO)
-                .url("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-                .comment("comment")
-                .build();
+        Content content = new Content()
+                .setTitle("title")
+                .setMediaType(MediaType.VIDEO)
+                .setUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                .setComment("comment");
         verify(repository, times(1)).save(content);
     }
 }

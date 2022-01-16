@@ -28,14 +28,13 @@ public class UserService extends CrudService<User> {
     }
 
     public void register(UserRequest request) {
-        save(User.builder()
-                .name(request.getName())
-                .phone(request.getPhone())
-                .password(request.getPassword())
-                .sendNotification(request.isSendNotifications())
-                .isActive(true)
-                .userRole(UserRole.ROLE_USER)
-                .build());
+        save(new User()
+                .setName(request.getName())
+                .setPhone(request.getPhone())
+                .setPassword(request.getPassword())
+                .setSendNotification(request.isSendNotifications())
+                .setActive(true)
+                .setUserRole(UserRole.ROLE_USER));
     }
 
     @Override

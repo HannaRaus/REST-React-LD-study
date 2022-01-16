@@ -120,45 +120,41 @@ class LessonServiceTest {
     }
 
     private Tag tag() {
-        return Tag.builder()
-                .id(UUID.randomUUID())
-                .label("label")
-                .lessons(null)
-                .build();
+        return new Tag()
+                .setId(UUID.randomUUID())
+                .setLabel("label")
+                .setLessons(null);
     }
 
     private Content content() {
-        return Content.builder()
-                .id(UUID.randomUUID())
-                .title("title")
-                .mediaType(MediaType.VIDEO)
-                .url("url")
-                .comment("comment")
-                .build();
+        return new Content()
+                .setId(UUID.randomUUID())
+                .setTitle("title")
+                .setMediaType(MediaType.VIDEO)
+                .setUrl("url")
+                .setComment("comment");
     }
 
     private User user() {
-        return User.builder()
-                .name("name")
-                .phone("+380631111111")
-                .password("password")
-                .isActive(true)
-                .sendNotification(true)
-                .userRole(UserRole.ROLE_USER)
-                .favoriteLessons(null)
-                .build();
+        return new User()
+                .setName("name")
+                .setPhone("+380631111111")
+                .setPassword("password")
+                .setActive(true)
+                .setSendNotification(true)
+                .setUserRole(UserRole.ROLE_USER)
+                .setFavoriteLessons(null);
     }
 
     private Lesson lesson() {
-        return Lesson.builder()
-                .id(UUID.fromString("17e52164-25e5-4771-b024-d77bddec124c"))
-                .title("title")
-                .description("description")
-                .creationDate(LocalDate.now())
-                .accessType(AccessType.PUBLIC)
-                .tags(Set.of(tag()))
-                .contents(List.of(content()))
-                .author(user())
-                .build();
+        return new Lesson()
+                .setId(UUID.fromString("17e52164-25e5-4771-b024-d77bddec124c"))
+                .setTitle("title")
+                .setDescription("description")
+                .setCreationDate(LocalDate.now())
+                .setAccessType(AccessType.PUBLIC)
+                .setTags(Set.of(tag()))
+                .setContents(List.of(content()))
+                .setAuthor(user());
     }
 }
