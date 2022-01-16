@@ -79,9 +79,9 @@ class LessonServiceTest {
 
     @Test
     public void findByTagsIn_happyPath() {
-        when(repository.findByTagsIn(any())).thenReturn(List.of(lesson()));
+        when(repository.findByTagsIn(any())).thenReturn(Set.of(lesson()));
 
-        List<Lesson> result = target.findByTagsIn(Set.of(tag()));
+        Set<Lesson> result = target.findByTagsIn(Set.of(tag()));
         List<Lesson> expected = result.stream()
                 .filter(lesson -> !lesson.getTags().contains(tag()))
                 .collect(Collectors.toList());
@@ -93,9 +93,9 @@ class LessonServiceTest {
 
     @Test
     public void findByTagsIn_whenNoLessonWithSuchTag_shouldReturnEmptyList() {
-        when(repository.findByTagsIn(any())).thenReturn(Collections.emptyList());
+        when(repository.findByTagsIn(any())).thenReturn(Collections.emptySet());
 
-        List<Lesson> result = target.findByTagsIn(Set.of(tag()));
+        Set<Lesson> result = target.findByTagsIn(Set.of(tag()));
 
         assertTrue(result.isEmpty());
     }

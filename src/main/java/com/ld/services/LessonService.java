@@ -49,7 +49,7 @@ public class LessonService extends CrudService<Lesson> {
         return lessonRepository.findByTitleIgnoreCaseContains(searchWord);
     }
 
-    public List<Lesson> findByTagsIn(Set<Tag> tags) {
+    public Set<Lesson> findByTagsIn(Set<Tag> tags) {
         log.info("LessonService.findByTitleLike - Searching lesson with title '{}", tags);
         return lessonRepository.findByTagsIn(tags);
     }

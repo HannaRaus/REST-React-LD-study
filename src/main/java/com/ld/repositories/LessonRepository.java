@@ -14,7 +14,7 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
     List<Lesson> findByTitleIgnoreCaseContains(String title);
 
-    List<Lesson> findByTagsIn(Set<Tag> tags);
+    Set<Lesson> findByTagsIn(Set<Tag> tags);
 
     List<Lesson> findByAuthor_Name(String author);
 

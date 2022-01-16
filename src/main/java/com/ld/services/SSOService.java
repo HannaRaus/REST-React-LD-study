@@ -1,14 +1,15 @@
 package com.ld.services;
 
-import com.ld.model.enums.AccessType;
 import com.ld.error_handling.exceptions.AccessDeniedException;
 import com.ld.model.Lesson;
 import com.ld.model.User;
+import com.ld.model.enums.AccessType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class SSOService {
         }
     }
 
-    public List<Lesson> checkUserPermission(List<Lesson> lessons) {
+    public List<Lesson> checkUserPermission(Collection<Lesson> lessons) {
         return lessons.stream()
                 .filter(this::isPresentForUser)
                 .collect(Collectors.toList());
