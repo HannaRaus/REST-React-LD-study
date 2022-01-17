@@ -84,9 +84,9 @@ class LessonServiceTest {
         when(repository.findByTagsIn(any())).thenReturn(Set.of(lesson()));
 
         Set<Lesson> result = target.findByTagsIn(Set.of(tag()));
-        List<Lesson> expected = result.stream()
+        Set<Lesson> expected = result.stream()
                 .filter(lesson -> !lesson.getTags().contains(tag()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         assertEquals(expected, result);
         result.forEach(lesson -> lesson.getTags()
