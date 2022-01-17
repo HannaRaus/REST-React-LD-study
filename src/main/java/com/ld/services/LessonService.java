@@ -46,7 +46,7 @@ public class LessonService extends CrudService<Lesson> {
 
     public List<Lesson> findByTitleLike(String searchWord) {
         log.info("LessonService.findByTitleLike - Searching lesson with title '{}", searchWord);
-        return lessonRepository.findByTitleIgnoreCaseContains(searchWord);
+        return lessonRepository.findByTitleIgnoreCaseContainsOrDescriptionIgnoreCaseContains(searchWord, searchWord);
     }
 
     public Set<Lesson> findByTagsIn(Set<Tag> tags) {

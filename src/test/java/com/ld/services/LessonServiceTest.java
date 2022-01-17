@@ -61,7 +61,8 @@ class LessonServiceTest {
 
     @Test
     public void findByTitleLike_happyPath() {
-        when(repository.findByTitleIgnoreCaseContains(any())).thenReturn(List.of(lesson()));
+        when(repository.findByTitleIgnoreCaseContainsOrDescriptionIgnoreCaseContains(any(), any()))
+                .thenReturn(List.of(lesson()));
 
         List<Lesson> result = target.findByTitleLike("title");
 
@@ -70,7 +71,8 @@ class LessonServiceTest {
 
     @Test
     public void findByTitleLike_whenNoLessonWithSuchTitle_shouldReturnEmptyList() {
-        when(repository.findByTitleIgnoreCaseContains(any())).thenReturn(Collections.emptyList());
+        when(repository.findByTitleIgnoreCaseContainsOrDescriptionIgnoreCaseContains(any(), any()))
+                .thenReturn(Collections.emptyList());
 
         List<Lesson> result = target.findByTitleLike("title");
 

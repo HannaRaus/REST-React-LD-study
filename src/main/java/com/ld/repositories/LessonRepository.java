@@ -12,7 +12,7 @@ import java.util.UUID;
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
-    List<Lesson> findByTitleIgnoreCaseContains(String title);
+    List<Lesson> findByTitleIgnoreCaseContainsOrDescriptionIgnoreCaseContains(String title, String description);
 
     Set<Lesson> findByTagsIn(Set<Tag> tags);
 
