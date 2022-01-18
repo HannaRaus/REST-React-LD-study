@@ -3,15 +3,14 @@ package com.ld.controllers;
 import com.ld.services.ContentService;
 import com.ld.services.validation.ContentValidationService;
 import com.ld.validation.ContentRequest;
-import com.ld.validation.ValidateResponse;
+import com.ld.validation.Response;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/contents")
 public class ContentController {
@@ -21,9 +20,7 @@ public class ContentController {
     private final LessonsController controller;
 
     @PostMapping(path = "/create")
-    @ResponseBody
-    public ValidateResponse create(@RequestBody ContentRequest request) {
-        ValidateResponse response = validationService.validate(request);
-        return response;
+    public Response create(@RequestBody ContentRequest request) {
+        return validationService.validate(request);
     }
 }

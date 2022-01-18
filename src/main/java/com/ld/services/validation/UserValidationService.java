@@ -1,7 +1,7 @@
 package com.ld.services.validation;
 
 import com.ld.services.UserService;
-import com.ld.validation.ValidateResponse;
+import com.ld.validation.Response;
 import com.ld.validation.UserRequest;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
@@ -23,7 +23,7 @@ public class UserValidationService {
 
     private final UserService service;
 
-    public ValidateResponse validate(@NonNull UserRequest request) {
+    public Response validate(@NonNull UserRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String name = request.getName();
@@ -47,7 +47,7 @@ public class UserValidationService {
             errors.add(ValidationError.INCORRECT_PHONE_NUMBER);
         }
 
-        return new ValidateResponse(errors.isEmpty(), errors);
+        return Response.validationErrors(errors);
     }
 
     private boolean isCorrectPhoneNumber(String phone) {

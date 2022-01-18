@@ -1,6 +1,5 @@
 package com.ld.configuration;
 
-import com.ld.authorization.LdUserDetailsService;
 import com.ld.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    private final LdUserDetailsService userDetailsService;
 
     @Bean(name = "passwordEncoder")
     public BCryptPasswordEncoder passwordEncoder() {
@@ -41,17 +38,6 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/users/registration", "/js/*.js", "/css/*.css", "/error")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/users/login")
-                .usernameParameter("phone")
-                .defaultSuccessUrl("/lessons/all")
-                .permitAll()
-                .and()
-                .logout()
                 .permitAll()
                 .and()
                 .headers()

@@ -1,7 +1,7 @@
 package com.ld.services.validation;
 
 import com.ld.validation.LessonRequest;
-import com.ld.validation.ValidateResponse;
+import com.ld.validation.Response;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 public class LessonValidationService {
 
-    public ValidateResponse validate(@NonNull LessonRequest request) {
+    public Response validate(@NonNull LessonRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String title = request.getTitle();
@@ -37,6 +37,6 @@ public class LessonValidationService {
             log.error("LessonValidationService.validate - contents:'{}' can't be empty", contents);
             errors.add(ValidationError.EMPTY_CONTENT_ERROR);
         }
-        return new ValidateResponse(errors.isEmpty(), errors);
+        return Response.validationErrors(errors);
     }
 }

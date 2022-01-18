@@ -1,7 +1,7 @@
 package com.ld.services.validation;
 
 import com.ld.services.TagService;
-import com.ld.validation.ValidateResponse;
+import com.ld.validation.Response;
 import com.ld.validation.TagRequest;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
@@ -21,7 +21,7 @@ public class TagValidationService {
 
     private final TagService service;
 
-    public ValidateResponse validate(@NonNull TagRequest request) {
+    public Response validate(@NonNull TagRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String label = request.getLabel();
@@ -38,6 +38,6 @@ public class TagValidationService {
             log.error("TagValidationService.validate - There are few tags with same label:'{}'", label);
             errors.add(ValidationError.TAG_IS_NOT_UNIQUE);
         }
-        return new ValidateResponse(errors.isEmpty(), errors);
+        return Response.validationErrors(errors);
     }
 }

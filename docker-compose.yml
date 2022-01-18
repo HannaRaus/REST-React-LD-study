@@ -5,12 +5,12 @@ version: '3'
 services:
 
   #PostgreSQL Database for the application
-  ld-postgres:
+  ld-study-postgres:
     image: "postgres:14.1-alpine"
-    container_name: ld-postgres
+    container_name: ld-study-postgres
     # Forward the exposed port 5432 on the container to port 5432 on the host machine
     ports:
-      - 5433:5432
+      - 5555:5432
     #Volume mounted for database for the storage
     volumes:
       - ld-data:/var/lib/postgresql/data
@@ -23,22 +23,22 @@ services:
     restart: always
 
   #Back-end Spring Boot Application
-  ld-app:
+  ld-study-app:
     #The docker file build the jar and provides the docker image.
     build: .
-    container_name: ld-app
+    container_name: ld-study-app
     # Forward the exposed port 8080 on the container to port 8080 on the host machine
     ports:
-      - 8081:8080
+      - 9000:8080
     #Environment variables for Spring Boot Application.
     environment:
-      - DB_SERVER=ld-postgres
+      - DB_SERVER=ld-study-postgres
       - POSTGRES_DB=ld-data
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=qazse456
 #    restart: always
     depends_on:
-      - ld-postgres
+      - ld-study-postgres
 
 #Volumes for DB data
 volumes:

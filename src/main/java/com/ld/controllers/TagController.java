@@ -2,16 +2,15 @@ package com.ld.controllers;
 
 import com.ld.services.TagService;
 import com.ld.services.validation.TagValidationService;
-import com.ld.validation.ValidateResponse;
+import com.ld.validation.Response;
 import com.ld.validation.TagRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/tags")
 public class TagController {
@@ -20,9 +19,8 @@ public class TagController {
     private final TagValidationService validationService;
 
     @PostMapping("/create")
-    @ResponseBody
-    public ValidateResponse create(@RequestBody TagRequest request) {
-        ValidateResponse response = validationService.validate(request);
+    public Response create(@RequestBody TagRequest request) {
+        Response response = validationService.validate(request);
         if (response.isSuccess()) {
             service.save(request);
         }

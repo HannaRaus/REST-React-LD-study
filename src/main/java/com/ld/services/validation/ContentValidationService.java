@@ -2,7 +2,7 @@ package com.ld.services.validation;
 
 import com.ld.model.enums.MediaType;
 import com.ld.validation.ContentRequest;
-import com.ld.validation.ValidateResponse;
+import com.ld.validation.Response;
 import com.ld.validation.ValidationError;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 public class ContentValidationService {
 
-    public ValidateResponse validate(@NonNull ContentRequest request) {
+    public Response validate(@NonNull ContentRequest request) {
         List<ValidationError> errors = new ArrayList<>();
 
         String title = request.getTitle();
@@ -51,7 +51,7 @@ public class ContentValidationService {
             errors.add(ValidationError.WRONG_COMMENT_LENGTH);
         }
 
-        return new ValidateResponse(errors.isEmpty(), errors);
+        return Response.validationErrors(errors);
     }
 
     private boolean isCorrectUrl(String url) {
