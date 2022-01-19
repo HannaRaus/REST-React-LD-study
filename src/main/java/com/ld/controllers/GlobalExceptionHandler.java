@@ -7,11 +7,11 @@ import com.ld.error_handling.exceptions.UserNotFoundException;
 import com.ld.validation.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
@@ -39,8 +39,13 @@ public class GlobalExceptionHandler {
         return getResponseEntity(ex, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(Exception.class)
+    public Response global(Exception ex) {
+        return getResponseEntity(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private <E extends Exception> Response getResponseEntity(E exception, HttpStatus status) {
-        log.error("ALERT: exception handled", exception);
+        log.error("ALERT: exception handled - {}", exception.getMessage());
         return Response.error(String.valueOf(status), exception.getMessage());
     }
 }
