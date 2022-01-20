@@ -10,6 +10,7 @@ import com.ld.validation.LessonRequest;
 import com.ld.validation.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,8 +48,8 @@ public class LessonsController {
         return response;
     }
 
-    @GetMapping
-    public Response lesson(@RequestParam(name = "id") UUID id) {
+    @GetMapping("/{id}")
+    public Response lesson(@PathVariable(name = "id") UUID id) {
         Lesson lesson = lessonService.findById(id);
         ssoService.isPresentForUser(lesson);
         return Response.result("lesson", lesson);

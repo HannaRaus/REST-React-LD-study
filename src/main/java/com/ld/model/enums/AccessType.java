@@ -1,5 +1,6 @@
 package com.ld.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.ld.error_handling.exceptions.InvalidAccessTypeException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +14,10 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 @Getter
 public enum AccessType {
-    PRIVATE("private"),
-    PUBLIC("public");
+    PRIVATE("Private"),
+    PUBLIC("Public");
 
+    @JsonValue
     private final String displayName;
 
     public static boolean isAccessType(String accessType) {

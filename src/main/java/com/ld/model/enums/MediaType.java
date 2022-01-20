@@ -1,5 +1,6 @@
 package com.ld.model.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.ld.error_handling.exceptions.InvalidMediaTypeException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public enum MediaType {
     VIDEO("Video"),
     IMAGE("Image");
 
+    @JsonValue
     private final String displayName;
 
     public static boolean isMediaType(String mediaType) {
