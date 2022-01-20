@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
-import {AuthContext} from "../context";
+import {AuthenticationContext} from "../context";
 
 const Menu = () => {
-    const {isAuthenticated, setAuthenticated} = useContext(AuthContext);
+    const {isAuthenticated, setAuthenticated} = useContext(AuthenticationContext);
 
     const logout = event => {
         event.preventDefault();

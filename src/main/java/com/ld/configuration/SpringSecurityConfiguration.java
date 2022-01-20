@@ -32,12 +32,28 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return authenticationManager();
     }
 
+    @Bean
+    CorsFilter corsFilter() {
+        return new CorsFilter();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/users/registration", "/js/*.js", "/css/*.css", "/error")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/users/login")
+                .usernameParameter("phone")
+                .defaultSuccessUrl("/lessons/all")
+                .permitAll()
+                .and()
+                .logout()
                 .permitAll()
                 .and()
                 .headers()

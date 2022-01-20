@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter} from "react-router-dom";
 import Menu from "./components/Menu";
 import LdRouter from "./router/LdRouter";
-import {AuthContext} from "./context";
+import {AuthenticationContext} from "./context";
 
 function LdStudyApp() {
     const [isAuthenticated, setAuthenticated] = useState(false);
@@ -17,7 +17,7 @@ function LdStudyApp() {
     }, [])
 
     return (
-        <AuthContext.Provider value={{
+        <AuthenticationContext.Provider value={{
             isAuthenticated,
             setAuthenticated,
             isLoading
@@ -26,7 +26,7 @@ function LdStudyApp() {
                 <Menu/>
                 <LdRouter/>
             </BrowserRouter>
-        </AuthContext.Provider>
+        </AuthenticationContext.Provider>
     );
 }
 
