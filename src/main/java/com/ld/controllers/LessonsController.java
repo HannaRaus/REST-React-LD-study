@@ -9,6 +9,7 @@ import com.ld.services.validation.LessonValidationService;
 import com.ld.validation.LessonRequest;
 import com.ld.validation.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ public class LessonsController {
     private final SSOService ssoService;
 
     @GetMapping(path = "/all")
+    @PreAuthorize("hasAuthority('read')")
     public Response showLessons() {
         List<Tag> tags = tagService.readAll();
         List<Lesson> lessons = lessonService.readAll();
@@ -40,6 +42,7 @@ public class LessonsController {
     }
 
     @PostMapping(path = "/create")
+    @PreAuthorize("hasAuthority('write')")
     public Response create(@RequestBody LessonRequest request) {
         Response response = validationService.validate(request);
         if (response.isSuccess()) {
@@ -49,6 +52,7 @@ public class LessonsController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('read')")
     public Response lesson(@PathVariable(name = "id") UUID id) {
         Lesson lesson = lessonService.findById(id);
         ssoService.isPresentForUser(lesson);
@@ -56,6 +60,7 @@ public class LessonsController {
     }
 
     @PostMapping(path = "/edit")
+    @PreAuthorize("hasAuthority('modify')")
     public Response update(@RequestBody LessonRequest request) {
         Response response = validationService.validate(request);
         if (response.isSuccess()) {
@@ -65,6 +70,7 @@ public class LessonsController {
     }
 
     @GetMapping(path = "/delete")
+    @PreAuthorize("hasAuthority('delete')")
     public void delete(@RequestParam(name = "id") UUID id) {
         ssoService.checkUserPermission(lessonService.findById(id));
         lessonService.delete(id);

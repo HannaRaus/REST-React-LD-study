@@ -7,6 +7,7 @@ import com.ld.services.SSOService;
 import com.ld.services.TagService;
 import com.ld.validation.Response;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/lessons/search")
+@PreAuthorize("hasAuthority('read')")
 public class LessonSearchController {
 
     private final LessonService lessonService;

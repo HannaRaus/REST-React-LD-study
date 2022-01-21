@@ -1,9 +1,8 @@
 package com.ld.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ld.model.enums.UserRole;
+import com.ld.authorization.UserRole;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.Accessors;

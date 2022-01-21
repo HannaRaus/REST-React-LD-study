@@ -1,9 +1,9 @@
 package com.ld.services;
 
+import com.ld.authorization.UserRole;
 import com.ld.error_handling.exceptions.UserAlreadyExistsException;
 import com.ld.error_handling.exceptions.UserNotFoundException;
 import com.ld.model.User;
-import com.ld.model.enums.UserRole;
 import com.ld.repositories.UserRepository;
 import com.ld.validation.UserRequest;
 import lombok.RequiredArgsConstructor;
