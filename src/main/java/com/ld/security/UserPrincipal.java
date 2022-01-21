@@ -1,4 +1,4 @@
-package com.ld.authorization;
+package com.ld.security;
 
 import com.ld.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

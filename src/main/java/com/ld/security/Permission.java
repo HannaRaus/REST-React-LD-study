@@ -1,4 +1,4 @@
-package com.ld.authorization;
+package com.ld.security;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.ld.authorization;
+package com.ld.security;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,11 +7,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.ld.authorization.Permission.DELETE;
-import static com.ld.authorization.Permission.MANAGE;
-import static com.ld.authorization.Permission.MODIFY;
-import static com.ld.authorization.Permission.READ;
-import static com.ld.authorization.Permission.WRITE;
+import static com.ld.security.Permission.DELETE;
+import static com.ld.security.Permission.MANAGE;
+import static com.ld.security.Permission.MODIFY;
+import static com.ld.security.Permission.READ;
+import static com.ld.security.Permission.WRITE;
 
 @Getter
 @RequiredArgsConstructor

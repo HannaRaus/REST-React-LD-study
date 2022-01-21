@@ -1,4 +1,4 @@
-package com.ld.authorization;
+package com.ld.security;
 
 import com.ld.model.User;
 import com.ld.repositories.UserRepository;
