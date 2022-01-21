@@ -3,12 +3,10 @@ package com.ld.security;
 import com.ld.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Collections;
 
 @Component
 public class UserPrincipal implements UserDetails {
@@ -22,7 +20,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(user.getUserRole().toString()));
+        return user.getUserRole().authorities();
     }
 
     @Override

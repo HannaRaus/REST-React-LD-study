@@ -3,6 +3,7 @@ package com.ld.validation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,9 @@ public class Response {
     private List<ValidationError> validationErrors = new ArrayList<>();
     private Map<String, Object> results = new TreeMap<>();
 
+    public static Response ok() {
+        return new Response();
+    }
 
     public static Response error(String errorMessage) {
         Response response = new Response();
@@ -28,10 +32,10 @@ public class Response {
         return response;
     }
 
-    public static Response error(String errorCode, String errorMessage) {
+    public static Response error(HttpStatus errorCode, String errorMessage) {
         Response response = new Response();
         response.success = false;
-        response.setErrorCode(errorCode);
+        response.setErrorCode(errorCode.toString());
         response.setErrorMessage(errorMessage);
         return response;
     }

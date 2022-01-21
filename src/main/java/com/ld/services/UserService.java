@@ -1,14 +1,20 @@
 package com.ld.services;
 
+import com.ld.error_handling.exceptions.JWTAuthenticationException;
 import com.ld.error_handling.exceptions.UserAlreadyExistsException;
 import com.ld.error_handling.exceptions.UserNotFoundException;
 import com.ld.model.User;
 import com.ld.repositories.UserRepository;
+import com.ld.security.JWTTokenProvider;
 import com.ld.security.UserRole;
+import com.ld.validation.AuthenticationRequest;
 import com.ld.validation.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +27,25 @@ public class UserService extends CrudService<User> {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JWTTokenProvider tokenProvider;
 
     @Override
     protected JpaRepository<User, UUID> getRepository() {
         return userRepository;
+    }
+
+    public void authenticate(AuthenticationRequest request) {
+        String phone = request.getPhone();
+        String password = request.getPassword();
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, password));
+            User user = findByPhone(phone);
+            String token = tokenProvider.createToken(phone, user.getUserRole().name());
+        } catch (AuthenticationException ex) {
+            log.error("UserService.authenticate - Phone - {} or password - {} is invalid", phone, password);
+            throw new JWTAuthenticationException("Phone or password is invalid");
+        }
     }
 
     public void register(UserRequest request) {

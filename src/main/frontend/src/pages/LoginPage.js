@@ -1,43 +1,32 @@
 import React, {useContext, useState} from 'react';
 import {AuthenticationContext} from "../context";
 import UserService from "../services/UserService";
+import {useHistory} from "react-router-dom";
 
 const LoginPage = () => {
+    const history = useHistory();
     const {isAuthenticated, setAuthenticated} = useContext(AuthenticationContext);
-    const [token, setToken] = useState();
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
 
     const login = event => {
         event.preventDefault();
-        setAuthenticated(true);
-        localStorage.setItem('authenticated', 'true')
-        console.log(localStorage.getItem('authenticated'))
-    }
-
-    const sendLogin = event => {
-        event.preventDefault();
         const loginData = {
             'phone': phone,
             'password': password
         }
-        console.log(loginData);
-        UserService.login(phone, password).then(response => {
-            console.log(response);
+        UserService.login(loginData).then(response => {
             if (response.success) {
                 setAuthenticated(true);
                 localStorage.setItem('authenticated', 'true');
-                console.log(localStorage.getItem('authenticated'))
+                history.push("/lessons/all");
             }
         })
-
-
     }
 
     return (
         <div className="container">
-            {/*//TODO forward to "/login"*/}
-            <form className="form-signin" onSubmit={sendLogin}>
+            <form className="form-signin" onSubmit={login}>
                 <h2 className="form-signin-heading">Log in</h2>
                 <div className="d-grid gap-2">
                     {/*//TODO show errors*/}

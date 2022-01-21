@@ -1,7 +1,8 @@
 package com.ld.configuration;
 
 import com.ld.model.User;
-import lombok.AllArgsConstructor;
+import com.ld.security.JWTConfigurer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,13 +10,16 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    private final JWTConfigurer jwtConfigurer;
 
     @Bean(name = "passwordEncoder")
     public BCryptPasswordEncoder passwordEncoder() {
@@ -28,36 +32,24 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationManager ldAuthenticationManager() throws Exception {
-        return authenticationManager();
-    }
-
-    @Bean
-    CorsFilter corsFilter() {
-        return new CorsFilter();
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
-                .antMatchers("/users/registration", "/js/*.js", "/css/*.css", "/error")
-                .permitAll()
+                .antMatchers("/users/registration").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/users/login")
-                .usernameParameter("phone")
-                .defaultSuccessUrl("/lessons/all")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin();
+                .apply(jwtConfigurer);
     }
 }

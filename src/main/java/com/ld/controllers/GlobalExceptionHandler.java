@@ -46,6 +46,6 @@ public class GlobalExceptionHandler {
 
     private <E extends Exception> Response getResponseEntity(E exception, HttpStatus status) {
         log.error("ALERT: exception handled - {}", exception.getMessage());
-        return Response.error(String.valueOf(status), exception.getMessage());
+        return Response.error(status, exception.getMessage());
     }
 }
