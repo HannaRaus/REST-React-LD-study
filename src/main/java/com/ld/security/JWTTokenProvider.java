@@ -1,6 +1,7 @@
 package com.ld.security;
 
 import com.ld.error_handling.exceptions.JWTAuthenticationException;
+import com.ld.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
@@ -31,7 +32,7 @@ public class JWTTokenProvider {
     private String secret;
 
     @Value("${jwt.expiration}")
-    private String expiration;
+    private long expiration;
 
     public JWTTokenProvider(@Qualifier("userDetailsService") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -42,17 +43,16 @@ public class JWTTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String phone, String role) {
-        String expiration1 = expiration;
-        Claims claims = Jwts.claims().setSubject(phone);
-        claims.put("role", role);
+    public String createToken(User user) {
+        Claims claims = Jwts.claims().setSubject(user.getPhone());
+        claims.put("role", user.getUserRole().name());
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + Long.parseLong(expiration1) * 1000);
+        Date expirationDate = new Date(now.getTime() + expiration);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(expiration)
+                .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }

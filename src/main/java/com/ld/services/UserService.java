@@ -35,13 +35,13 @@ public class UserService extends CrudService<User> {
         return userRepository;
     }
 
-    public void authenticate(AuthenticationRequest request) {
+    public String authenticate(AuthenticationRequest request) {
         String phone = request.getPhone();
         String password = request.getPassword();
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, password));
             User user = findByPhone(phone);
-            String token = tokenProvider.createToken(phone, user.getUserRole().name());
+            return tokenProvider.createToken(user);
         } catch (AuthenticationException ex) {
             log.error("UserService.authenticate - Phone - {} or password - {} is invalid", phone, password);
             throw new JWTAuthenticationException("Phone or password is invalid");

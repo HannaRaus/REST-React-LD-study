@@ -6,14 +6,16 @@ import com.ld.validation.Response;
 import com.ld.validation.TagRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping(path = "/tags")
+@CrossOrigin("*")
+@RequiredArgsConstructor
 public class TagController {
 
     private final TagService service;

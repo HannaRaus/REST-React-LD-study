@@ -3,22 +3,23 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {BrowserRouter} from "react-router-dom";
 import LdRouter from "./router/LdRouter";
 import {AuthenticationContext} from "./context";
+import AuthenticationService from "./services/AuthenticationService";
 
 function LdStudyApp() {
-    const [isAuthenticated, setAuthenticated] = useState(false);
+    const [auth, setAuth] = useState({});
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (localStorage.getItem('authenticated')) {
-            setAuthenticated(true);
+        if (AuthenticationService.getCurrentUser()) {
+            setAuth(AuthenticationService.getCurrentUser());
         }
         setLoading(false);
     }, [])
 
     return (
         <AuthenticationContext.Provider value={{
-            isAuthenticated,
-            setAuthenticated,
+            auth,
+            setAuth,
             isLoading
         }}>
             <BrowserRouter>

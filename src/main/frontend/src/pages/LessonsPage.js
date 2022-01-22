@@ -3,6 +3,7 @@ import LessonService from "../services/LessonService";
 import Tags from "../components/Tags";
 import LessonsTable from "../components/LessonsTable";
 import TableHeader from "../components/TableHeader";
+import Menu from "../components/Menu";
 
 function LessonsPage() {
     const [tags, setTags] = useState([]);
@@ -22,6 +23,7 @@ function LessonsPage() {
 
     return (
         <div className="Lessons">
+            <Menu/>
             <TableHeader lessons={lessons}/>
             <hr/>
             <Tags tags={tags}/>

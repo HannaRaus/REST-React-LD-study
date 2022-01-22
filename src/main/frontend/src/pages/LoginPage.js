@@ -1,27 +1,28 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {AuthenticationContext} from "../context";
-import UserService from "../services/UserService";
-import {useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
+import AuthenticationService from "../services/AuthenticationService";
 
 const LoginPage = () => {
-    const history = useHistory();
-    const {isAuthenticated, setAuthenticated} = useContext(AuthenticationContext);
+    const {setAuth} = useContext(AuthenticationContext);
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        setError('');
+    }, [phone, password])
 
     const login = event => {
         event.preventDefault();
-        const loginData = {
-            'phone': phone,
-            'password': password
-        }
-        UserService.login(loginData).then(response => {
+        AuthenticationService.login(phone, password).then(response => {
             if (response.success) {
-                setAuthenticated(true);
-                localStorage.setItem('authenticated', 'true');
-                history.push("/lessons/all");
+                setAuth(response.results);
+                // history.push("/lessons/all");
+            } else {
+                setError(response.errorMessage);
             }
-        })
+        });
     }
 
     return (
@@ -29,7 +30,7 @@ const LoginPage = () => {
             <form className="form-signin" onSubmit={login}>
                 <h2 className="form-signin-heading">Log in</h2>
                 <div className="d-grid gap-2">
-                    {/*//TODO show errors*/}
+                    <h5 className="ui-state-error-text" style={{color: 'red'}}>{error}</h5>
                     <label className="form-label mt-4">Phone number</label>
                     <input value={phone} onChange={event => setPhone(event.target.value)}
                            required type="text" className="form-control" id="phone" placeholder="Phone"/>
@@ -39,7 +40,7 @@ const LoginPage = () => {
                     <button className="btn btn-outline-primary btn-block" type="submit">Log in</button>
                     {/*//TODO forward to "/users/registration"*/}
                     <h4 className="text-center">
-                        <a>Create an account</a>
+                        <Link to="/registration">Create an account</Link>
                     </h4>
                 </div>
             </form>

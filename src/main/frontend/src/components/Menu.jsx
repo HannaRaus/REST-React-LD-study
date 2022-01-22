@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
 import {AuthenticationContext} from "../context";
+import AuthenticationService from "../services/AuthenticationService";
 
 const Menu = () => {
-    const {isAuthenticated, setAuthenticated} = useContext(AuthenticationContext);
+    const {setAuth} = useContext(AuthenticationContext);
 
     const logout = event => {
         event.preventDefault();
-        setAuthenticated(false);
-        localStorage.removeItem('authenticated')
+        let promise = AuthenticationService.logout();
+        promise.then(setAuth(null));
     }
 
     return (

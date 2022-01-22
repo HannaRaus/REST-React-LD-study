@@ -4,14 +4,15 @@ import {privateRoutes, publicRoutes} from "./index";
 import {AuthenticationContext} from "../context";
 
 const LdRouter = () => {
-    //TODO change to false then security will work
-    const {isAuthenticated, isLoading} = useContext(AuthenticationContext);
+    const {auth, setAuth} = useContext(AuthenticationContext);
+    const {isLoading} = useContext(AuthenticationContext);
 
     if (isLoading) {
-        return <h2/>
+        return <div/>
     }
+
     return (
-        isAuthenticated
+        auth
             ? <Switch>
                 {privateRoutes.map(route =>
                     <Route
@@ -20,7 +21,7 @@ const LdRouter = () => {
                         path={route.path}
                         exact={route.exact}/>
                 )}
-                {/*<Redirect to="/lessons/all"/>*/}
+                <Redirect to="/lessons/all"/>
             </Switch>
             : <Switch>
                 {publicRoutes.map(route =>
