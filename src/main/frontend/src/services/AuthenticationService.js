@@ -14,6 +14,7 @@ export default class AuthenticationService {
             let data = response.data;
             if (data.success) {
                 localStorage.setItem("auth", JSON.stringify(data.results))
+                localStorage.setItem("token", JSON.stringify(data.results.token))
             }
             return data;
         });
@@ -22,6 +23,7 @@ export default class AuthenticationService {
     static async logout() {
         //TODO send post to server
         localStorage.removeItem("auth");
+        localStorage.removeItem("token");
     }
 
     static async register(name, phone, password, sendNotifications) {

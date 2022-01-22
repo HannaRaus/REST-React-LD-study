@@ -4,7 +4,7 @@ import {privateRoutes, publicRoutes} from "./index";
 import {AuthenticationContext} from "../context";
 
 const LdRouter = () => {
-    const {auth, setAuth} = useContext(AuthenticationContext);
+    const {auth} = useContext(AuthenticationContext);
     const {isLoading} = useContext(AuthenticationContext);
 
     if (isLoading) {

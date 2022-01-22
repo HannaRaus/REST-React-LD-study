@@ -18,7 +18,6 @@ const LoginPage = () => {
         AuthenticationService.login(phone, password).then(response => {
             if (response.success) {
                 setAuth(response.results);
-                // history.push("/lessons/all");
             } else {
                 setError(response.errorMessage);
             }

@@ -10,7 +10,6 @@ import com.ld.validation.LessonRequest;
 import com.ld.validation.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +24,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/lessons")
-//TODO handle cross origin
-@CrossOrigin("*")
 @RequiredArgsConstructor
 public class LessonsController {
 

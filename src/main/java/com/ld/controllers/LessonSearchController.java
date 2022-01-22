@@ -9,7 +9,6 @@ import com.ld.validation.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +21,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/lessons/search")
 @PreAuthorize("hasAuthority('read')")
-@CrossOrigin("*")
 @RequiredArgsConstructor
 public class LessonSearchController {
 

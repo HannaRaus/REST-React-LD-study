@@ -8,7 +8,6 @@ import com.ld.validation.UserRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
-//TODO handle cross origin
-@CrossOrigin("*")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
