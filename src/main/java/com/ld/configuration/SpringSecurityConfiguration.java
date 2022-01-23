@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -71,10 +73,16 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter im
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/users/registration").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/registration", "/login").permitAll()
                 .anyRequest()
                 .authenticated()
+                .and()
+                .logout()
+                .logoutRequestMatcher(
+                        new AntPathRequestMatcher("/login?logout")
+                )
+                .addLogoutHandler(new SecurityContextLogoutHandler())
+                .logoutSuccessUrl("/login").permitAll()
                 .and()
                 .apply(jwtConfigurer);
     }

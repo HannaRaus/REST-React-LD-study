@@ -6,20 +6,20 @@ import {AuthenticationContext} from "./context";
 import AuthenticationService from "./services/AuthenticationService";
 
 function LdStudyApp() {
-    const [auth, setAuth] = useState({});
+    const [token, setToken] = useState({});
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (AuthenticationService.getCurrentUser()) {
-            setAuth(AuthenticationService.getCurrentUser());
+        if (AuthenticationService.getToken()) {
+            setToken(AuthenticationService.getToken());
         }
         setLoading(false);
     }, [])
 
     return (
         <AuthenticationContext.Provider value={{
-            auth,
-            setAuth,
+            token,
+            setToken,
             isLoading
         }}>
             <BrowserRouter>

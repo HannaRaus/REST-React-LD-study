@@ -7,7 +7,6 @@ import com.ld.model.User;
 import com.ld.repositories.UserRepository;
 import com.ld.security.JWTTokenProvider;
 import com.ld.security.UserRole;
-import com.ld.validation.AuthenticationRequest;
 import com.ld.validation.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +34,7 @@ public class UserService extends CrudService<User> {
         return userRepository;
     }
 
-    public String authenticate(AuthenticationRequest request) {
-        String phone = request.getPhone();
-        String password = request.getPassword();
+    public String authenticate(String phone, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, password));
             User user = findByPhone(phone);

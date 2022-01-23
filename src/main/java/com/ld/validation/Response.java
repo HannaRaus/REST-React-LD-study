@@ -59,6 +59,11 @@ public class Response {
         return response;
     }
 
+    public Response put(String key, Object value) {
+        results.put(key, value);
+        return this;
+    }
+
     public static Response validationErrors(List<ValidationError> validationErrors) {
         Response response = new Response();
         response.success = validationErrors.isEmpty();

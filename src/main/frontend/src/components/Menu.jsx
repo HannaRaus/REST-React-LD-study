@@ -4,12 +4,11 @@ import {AuthenticationContext} from "../context";
 import AuthenticationService from "../services/AuthenticationService";
 
 const Menu = () => {
-    const {setAuth} = useContext(AuthenticationContext);
+    const {setToken} = useContext(AuthenticationContext);
 
-    const logout = event => {
-        event.preventDefault();
+    const logout = () => {
         AuthenticationService.logout();
-        setAuth(null);
+        setToken(null);
     }
 
     return (
@@ -27,9 +26,7 @@ const Menu = () => {
                             <input className="form-control mr-sm-2" placeholder="Search" type="search"/>
                             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                         </form>
-                        <Link to="/logout" onClick={logout}
-                              className="btn btn-outline-secondary my-2 my-sm-0"
-                              type="submit">Logout</Link>
+                        <button onClick={logout} className="btn btn-outline-secondary my-2 my-sm-0">Logout</button>
                     </div>
                 </nav>
             </div>

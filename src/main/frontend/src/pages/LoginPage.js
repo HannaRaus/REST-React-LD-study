@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import AuthenticationService from "../services/AuthenticationService";
 
 const LoginPage = () => {
-    const {setAuth} = useContext(AuthenticationContext);
+    const {setToken} = useContext(AuthenticationContext);
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -17,7 +17,7 @@ const LoginPage = () => {
         event.preventDefault();
         AuthenticationService.login(phone, password).then(response => {
             if (response.success) {
-                setAuth(response.results);
+                setToken(response.results);
             } else {
                 setError(response.errorMessage);
             }

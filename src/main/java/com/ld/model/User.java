@@ -55,6 +55,7 @@ public class User {
     @Column(name = "user_role")
     private UserRole userRole;
 
+    @ToString.Exclude
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = com.ld.model.Lesson.class)
     @JoinTable(name = "user_favorite_lessons",

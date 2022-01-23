@@ -4,16 +4,16 @@ import {privateRoutes, publicRoutes} from "./index";
 import {AuthenticationContext} from "../context";
 
 const LdRouter = () => {
-    const {auth} = useContext(AuthenticationContext);
     const {isLoading} = useContext(AuthenticationContext);
 
     if (isLoading) {
-        return <div/>
+        return <h1>LOADING</h1>
     }
 
     return (
-        auth
-            ? <Switch>
+        localStorage.getItem("token")
+            ?
+            <Switch>
                 {privateRoutes.map(route =>
                     <Route
                         key={route.path}
@@ -23,7 +23,8 @@ const LdRouter = () => {
                 )}
                 <Redirect to="/lessons/all"/>
             </Switch>
-            : <Switch>
+            :
+            <Switch>
                 {publicRoutes.map(route =>
                     <Route
                         key={route.path}
@@ -33,7 +34,6 @@ const LdRouter = () => {
                 )}
                 <Redirect to="/login"/>
             </Switch>
-
     );
 };
 
