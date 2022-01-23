@@ -8,8 +8,8 @@ const Menu = () => {
 
     const logout = event => {
         event.preventDefault();
-        let promise = AuthenticationService.logout();
-        promise.then(setAuth(null));
+        AuthenticationService.logout();
+        setAuth(null);
     }
 
     return (
